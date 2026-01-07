@@ -1,0 +1,147 @@
+ .containerMainDashboards {
+     max-width: 1100px;
+     margin: 20px auto;
+     padding: 10px 20px 30px;
+ }
+ 
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 20px;
+ }
+ 
+ .header h1 {
+     font-size: 22px;
+     color: #111827;
+     margin: 0;
+ }
+ 
+ .header p {
+     margin: 4px 0 0;
+     color: #6b7280;
+     font-size: 14px;
+ }
+ 
+ .cards_resumes {
+     display: grid;
+     grid-template-columns: repeat(3, minmax(0, 1fr));
+     gap: 16px;
+     margin-bottom: 20px;
+ }
+ 
+ .cards_resumes .card {
+     display: flex;
+     padding: 14px 16px;
+     border-radius: 14px;
+     background-color: #ffffff;
+     box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+     transition: transform .15s ease-in, box-shadow .15s ease-in;
+ }
+ 
+ .cards_resumes .card:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+ }
+ 
+ .cardIcon {
+     width: 40px;
+     height: 40px;
+     border-radius: 999px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin-right: 10px;
+     background: linear-gradient(135deg, #2563eb, #4f46e5);
+     color: #fff;
+     flex-shrink: 0;
+ }
+ 
+ .cardContent {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     gap: 4px;
+ }
+ 
+ .cardContent span {
+     font-size: 12px;
+     color: #6b7280;
+ }
+ 
+ .cardContent strong {
+     font-size: 18px;
+     color: #111827;
+ }
+ 
+ .badges {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 6px;
+     margin-top: 4px;
+ }
+ 
+ .content_green {
+     background-color: #dcfce7;
+     color: #166534;
+     font-size: 11px;
+     padding: 3px 8px;
+     border-radius: 999px;
+ }
+ 
+ .content_red {
+     background-color: #fee2e2;
+     color: #b91c1c;
+     font-size: 11px;
+     padding: 3px 8px;
+     border-radius: 999px;
+ }
+ 
+ .cards_resumes_charts {
+     background-color: #ffffff;
+     box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+     padding: 16px 18px;
+     border-radius: 16px;
+     margin-bottom: 18px;
+ }
+ 
+ .cardChart h3 {
+     font-size: 15px;
+     margin-bottom: 8px;
+     color: #111827;
+ }
+ 
+ .cards_charts {
+     display: grid;
+     grid-template-columns: minmax(0, 1.2fr);
+     gap: 12px;
+ }
+ 
+ .card_chart {
+     background-color: #ffffff;
+     border-radius: 16px;
+     box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+     padding: 16px 18px;
+ }
+ 
+ .card_chart h3 {
+     font-size: 15px;
+     margin-bottom: 8px;
+     color: #111827;
+ }
+ 
+ @media (max-width: 900px) {
+     .cards_resumes {
+         grid-template-columns: repeat(2, minmax(0, 1fr));
+     }
+ }
+ 
+ @media (max-width: 640px) {
+     .containerMainDashboards {
+         padding: 10px 12px 20px;
+     }
+ 
+     .cards_resumes {
+         grid-template-columns: minmax(0, 1fr);
+     }
+ }

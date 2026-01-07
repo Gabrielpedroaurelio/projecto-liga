@@ -1,0 +1,165 @@
+.containerCategory {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 80px; /* Adjust for fixed navbar if needed */
+    padding-left: 270px; /* Adjust for sidebar if needed, though SideBarAdmin seems to be top search bar? check layout */
+}
+
+/* Adjusting layout based on other pages like Users which seem to have SideBarAdmin separate */
+/* Users.module.css probably handles the layout. Let's assume standard admin layout */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.btnAdd {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.listCategories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cardCategory {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cardCategory h3 {
+    margin: 0;
+    color: #333;
+}
+
+.cardCategory p {
+    color: #666;
+    font-size: 0.9rem;
+    flex-grow: 1;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btnEdit, .btnDelete {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btnEdit {
+    background-color: #2196F3;
+    color: white;
+}
+
+.btnDelete {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modalContent h2 {
+    margin-top: 0;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.formGroup label {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.formGroup input, .formGroup textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btnCancel {
+    background: #ccc;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btnSave {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

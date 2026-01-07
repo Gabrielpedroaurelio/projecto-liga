@@ -1,0 +1,37 @@
+.containerHistory {
+    margin-left: 50px;
+ 
+ 
+
+
+}
+
+.containerHistory>div {
+    margin: auto;
+    max-width: 1000px;
+    min-width: 800px;
+
+}
+
+.containerHistory .navigatorHistory {
+    width:300px;
+    margin:10px auto;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.containerHistory .navigatorHistory div{}
+
+.containerHistory .navigatorHistory  button{
+    background-color: var(--c4);
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    margin: auto 10px;
+    transition: background-color .5s ease-in-out;
+    color: aliceblue;
+    cursor: pointer;
+}
+.containerHistory .navigatorHistory  button:hover{
+background-color: var(--c3);
+}

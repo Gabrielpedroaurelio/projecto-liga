@@ -1,0 +1,172 @@
+@import url(../../../../assets/_css/includes/includes.cores-fonte.css);
+
+.bodyLogin {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background: radial-gradient(circle at top left, #eef2ff, #e5e7eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerLogin {
+    width: 900px;
+    max-width: 95vw;
+    height: 520px;
+    border-radius: 16px;
+    background-color: #ffffff;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    overflow: hidden;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    transition: all .9s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+.LoginEffect{
+    transform: translate(-50%, -50%);
+}
+
+/*
+Falta colocar efeitos
+
+
+*/
+.showLogin{
+ 
+    transform: translate(-50%, -50%);
+}
+
+.bodyLogin .containerLogin .info {
+    background-image: url(../../../../assets/_images/herobg.png);
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.bodyLogin .containerLogin .info>div {
+    padding: 40px 24px;
+    height: 100%;
+    backdrop-filter: blur(4px);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.319), rgba(37, 100, 235, 0.248));
+}
+
+.bodyLogin .containerLogin .info>div h1,
+.bodyLogin .containerLogin .info>div p {
+    text-align: center;
+}
+
+.bodyLogin .containerLogin .form {}
+
+.bodyLogin .containerLogin .form form {
+    padding-top: 80px;
+    width: 80%;
+    margin: auto;
+}
+
+.bodyLogin .containerLogin .controlerInput {
+    margin: auto;
+    position: relative;
+    height: 70px;
+    width: 100%;
+}
+
+.bodyLogin .containerLogin .controlerInput label {
+    position: absolute;
+    display: block;
+    left: 10px;
+    top: 10px;
+    color: #535252;
+    cursor: text;
+    transition: all .5s;
+}
+
+.bodyLogin .containerLogin .controlerInput input {
+    display: block;
+    padding: 2px 2px 2px 10px;
+    border: none;
+    background-color: #f9fafb;
+    box-shadow: 0px 0px 0px transparent;
+    border-radius: 10px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #e5e7eb;
+    transition: all .25s ease-in-out;
+}
+
+.bodyLogin .containerLogin .controlerInput input:focus~label {
+    color: rgb(0, 0, 0);
+    top: -25px;
+    left: 0px;
+}
+.bodyLogin .containerLogin .controlerInput .valued {
+     top: -25px;
+    left: 0px;
+}
+
+.bodyLogin .containerLogin .controlerInput input[type="submit"] {
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+}
+
+.containerLogin * {}
+
+.containerLogin .cardImg {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 0px;
+    padding: 10px 2px 0px 10px;
+}
+
+.containerLogin .cardImg span{
+    width: 0px;
+    overflow: hidden;
+    font-size: 18pt;
+    font-weight: 600;
+    position: relative;
+    transition: all 4s ease-in-out;   
+     
+}
+.containerLogin .cardImg .titleLogo {
+    width: 100%;
+    white-space: nowrap;
+    display: flex;
+    margin-left: 10px;
+    color: #0f172a;
+}
+ 
+.errorMessage {
+    font-size: 11px;
+    color: var(--c14);
+    background-color: var(--c13);
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+@media (max-width: 768px) {
+    .containerLogin {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .bodyLogin .containerLogin .info {
+        display: none;
+    }
+
+    .bodyLogin .containerLogin .form form {
+        padding-top: 40px;
+        padding-bottom: 24px;
+    }
+}

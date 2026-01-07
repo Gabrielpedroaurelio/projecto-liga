@@ -1,0 +1,55 @@
+.containerSideBarAdmin{
+    margin-left: 180px;
+    display: flex;
+    justify-content: center;
+    height: 60px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.containerSideBarAdmin .SideBarAdmin{
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;overflow: hidden;
+    box-shadow: #d0d0d0 2px 2px 10px 2px;
+    
+}
+.containerSideBarAdmin .SideBarAdmin .barsearch{
+    background-color: rgb(255, 255, 255);
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+    width: 100%;
+    
+}
+.containerSideBarAdmin .SideBarAdmin .barsearch svg{
+    color: #a0a0a0;
+    margin-left: 5px;
+}
+.containerSideBarAdmin .SideBarAdmin .barsearch input{
+    border: none;
+    width: 100%;
+    padding-left: 10px;
+    font-size: 10pt;
+    color: #a0a0a0;
+    outline: none;
+    
+}
+.containerSideBarAdmin .SideBarAdmin .barsearch input::placeholder{
+    font-size: 8pt;
+
+}
+.containerSideBarAdmin .SideBarAdmin .barsearch select{
+    border: none;
+    outline: none;
+
+}
+.containerSideBarAdmin .SideBarAdmin .userCard{
+    background-color: red;
+    width: 50px;
+    display: flex;
+
+}

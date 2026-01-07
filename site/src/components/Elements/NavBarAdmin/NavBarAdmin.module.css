@@ -1,0 +1,138 @@
+@import url(../../../assets/_css/includes/includes.cores-fonte.css);
+
+.containerNavBarAdmin {
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    box-shadow: 0px 0px 20px #bbbbbb;
+    overflow: hidden;
+    z-index: 1;
+    transition: all .4s ease-in-out;
+
+}
+
+.MenuLong {
+    width: 180px;
+
+}
+
+.MenuShort {
+
+    width: 50px;
+}
+
+.containerNavBarAdmin .logo {
+    display: flex;
+    align-items: center;
+    padding: 20px 10px;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+.containerNavBarAdmin .logo img{
+    width: 20px;
+
+}
+
+.containerNavBarAdmin .logo .btnExpandir {
+    display: none;
+}
+
+/*
+.containerNavBarAdmin .logo .btnExpandir{
+    border:none;
+    padding:10px;
+    border-radius:5px;
+    position:fixed;
+    left:50px;
+    transition:all .4s ease-in-out;
+
+
+        
+}
+
+.MenuLong .logo .btnExpandir{
+    position:fixed;
+    transition:all .4s ease-in-out;
+    left:180px;
+}*/
+.containerNavBarAdmin .navBarAdmin .navbar {}
+
+.containerNavBarAdmin .navBarAdmin .navbar a {
+    display: block;
+    text-decoration: none;
+    color: #5a5a5a;
+    transition: all .2s ease-in-out;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    width: 90%;
+    margin: 5px auto;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.containerNavBarAdmin .navBarAdmin .navbar a:hover {
+    background-color: #cbd9e1af;
+    color: var(--c1);
+
+}
+
+.containerNavBarAdmin .navBarAdmin .navbar a span {
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.containerNavBarAdmin .navBarAdmin .navbar a .txt {
+    font-size: 10pt;
+
+
+
+}
+
+.MenuShort .navBarAdmin .navbar a .txt {
+    display: none;
+}
+
+.containerNavBarAdmin .navBarAdmin .navbar .btnUserAccount {}
+
+.containerNavBarAdmin .navBarAdmin .navbar .btnUserAccount .icon,.MenuLong .navBarAdmin .navbar .btnUserAccount .icon,.MenuShort .navBarAdmin .navbar .btnUserAccount .icon{
+    border-radius: 50%;
+   
+    
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 10px;
+
+}
+.MenuShort .navBarAdmin .navbar .btnUserAccount .icon{
+    margin-left: -0px;
+}
+.containerNavBarAdmin .navBarAdmin .navbar .btnUserAccount span>img {
+}
+
+.containerNavBarAdmin .navBarAdmin .navbar .btnUserAccount .txt {
+    display: grid;
+}
+
+.MenuShort .navBarAdmin .navbar .btnUserAccount .txt span{
+    display: none;
+}
+.containerNavBarAdmin .navBarAdmin .navbar .btnUserAccount .txt span {
+    font-size: 7pt;
+
+
+}
+
+.containerNavBarAdmin .navBarAdmin .navbar .btnUserAccount .txt span:nth-child(2) {
+
+   font-size: 5pt;
+}

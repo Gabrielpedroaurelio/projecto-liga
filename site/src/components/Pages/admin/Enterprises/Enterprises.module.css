@@ -1,0 +1,425 @@
+@import url(../../../../assets/_css/includes/includes.cores-fonte.css);
+
+.containerEnterprise {
+    margin-left: 50px;
+
+
+
+}
+
+.containerEnterprise .containerController {
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.containerEnterprise .containerController button {
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    color: #fff;
+    width: 150px;
+    margin-right: 20px;
+    font-size: 12pt;
+    padding: 10px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+
+}
+
+.containerEnterprise .listEnterprise {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.containerEnterprise .listEnterprise .enterprise {
+    width: 300px;
+    height: 130px;
+    box-shadow: #bbbdbf 5px 10px 20px 0px;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    background-color: #fff;
+
+}
+
+.containerEnterprise .listEnterprise .enterprise .info {
+    display: flex;
+    align-items: center;
+    width: 280px;
+
+}
+
+.containerEnterprise .listEnterprise .enterprise .info .datas {
+
+    width: 100%;
+    padding-left: 10px;
+}
+
+.containerEnterprise .listEnterprise .enterprise .info .datas span:nth-child(1) {
+    display: block;
+    font-weight: 600;
+
+
+}
+
+.containerEnterprise .listEnterprise .enterprise .info .datas span:nth-child(2) {
+    font-size: 11px;
+
+}
+
+.containerEnterprise .listEnterprise .enterprise .option {
+
+    display: flex;
+    padding: 5px 10px;
+    justify-content: flex-end;
+}
+
+.containerEnterprise .listEnterprise .enterprise .option button {
+    width: 90px;
+    background-color: var(--c1);
+    border: none;
+    margin: 2px;
+    padding: 5px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.containerEnterprise .listEnterprise .enterprise .option button:nth-child(1) {}
+
+.containerEnterprise .listEnterprise .enterprise .option button:nth-child(2) {
+    color: var(--c1);
+    border: 1px solid var(--c1);
+    background-color: #fff;
+
+}
+
+form>div>h2 {
+    text-align: center;
+}
+
+.containerEdit,
+.containerView {
+
+    width: 0px;
+    overflow: hidden;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    transition: width .4s ease-in-out;
+    background-color: #ffffff;
+    height: 100vh;
+    box-shadow: 0px 0px 10px #c6c6c6;
+}
+
+.ShowContainerEdit,
+.ShowContainerView {
+    width: 400px;
+
+}
+
+.containerAdd {
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0vw;
+    height: 0px;
+    background-color: #00000045;
+    z-index: 1;
+
+    transition: all .5s ease-in-out;
+}
+
+.ShowContainerAdd {
+    background-color: #00000077;
+    width: 100vw;
+
+    height: 100vh;
+    top: 0%;
+    left: 0%;
+    transform: translate(0%, 0%);
+}
+
+/*
+Configuracao do formularioi de adicionar
+
+*/
+.containerAdd .cardForm {
+    width: 400px;
+
+    background-color: #fff;
+    box-shadow: 0px 0px 10px #7c7c7c;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.containerAdd .cardForm .cardClose {
+    display: flex;
+    justify-content: flex-end;
+
+    align-items: center;
+
+}
+
+
+.cardForm {
+    width: 100%;
+    max-width: 500px;
+    height: 90%;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 30px 25px;
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cardClose {
+
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.cardClose:hover {
+    color: #ff4b5c;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputController {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputController label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+
+.inputController input[type="text"],
+.inputController input[type="email"],
+.inputController input[type="file"] {
+    padding: 12px 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    height: 30px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.inputController input[type="file"] {
+    height: max-content;
+}
+
+.inputController input[type="text"]:focus,
+.inputController input[type="email"]:focus,
+.inputController input[type="file"]:focus {
+    border-color: var(--c1);
+    box-shadow: 0 0 .1px var(--c1);
+    outline: none;
+}
+
+.inputController input[type="file"]::-webkit-file-upload-button {
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+
+
+
+
+
+}
+
+
+input[type="file"] {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .cardForm {
+        padding: 20px 15px;
+    }
+}
+
+.inputController input[type="submit"] {
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    color: #fff;
+    width: 80%;
+    margin: auto;
+    font-size: 12pt;
+    padding: 10px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+
+}
+
+
+.containerEdit .cardClose,
+.containerView .cardClose {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
+
+}
+
+/*
+    CONFIGURAÇÕES DO PAINEL DETALHES DA EMPRESA
+*/
+
+
+.ShowContainerView .card_descriacao {
+    width: 90%;
+    margin: auto;
+
+}
+
+.ShowContainerView .card_descriacao h2 {
+    font-size: 14pt;
+
+}
+
+.ShowContainerView .card_descriacao>div {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.ShowContainerView .card_descriacao>div span {
+    color: #414b5a;
+    font-size: 15px;
+}
+
+/*
+CONFIGURAÇÃO DO PAINEL EDITAR
+
+*/
+.containerEdit .cardform {
+    display: none;
+}
+
+.ShowContainerEdit .cardform {
+    width: 90%;
+    height: 90%;
+    overflow-y: auto;
+    display: block;
+    margin: auto;
+}
+
+.ShowContainerEdit .cardform .card_enterprise {
+    background-color: #fff;
+    margin: auto;
+    height: 130px;
+    width: 350px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #dddddd;
+    display: grid;
+    align-items: center;
+
+    grid-template-columns: 100px 250px;
+
+}
+
+.ShowContainerEdit .cardform .card_enterprise .img {
+    width: 70px;
+    box-sizing: border-box;
+
+    height: 90px;
+    border: 1px solid rgb(10, 9, 9);
+    overflow: hidden;
+    margin: auto;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ShowContainerEdit .cardform .card_enterprise .img img {
+    width: 100%;
+    height: auto;
+}
+
+.ShowContainerEdit .cardform .card_enterprise .info {}
+
+.ShowContainerEdit .cardform .card_enterprise .info h3 {}
+
+.ShowContainerEdit .cardform .card_enterprise .info strong {
+    color: #999;
+    font-size: 10pt;
+}
+
+.ShowContainerEdit .cardform .card_enterprise .info span {
+
+    display: block;
+    font-size: 10px;
+    color: var(--c16);
+
+
+}
+
+.ShowContainerEdit .cardform .cardinput {
+
+    display: grid;
+
+
+}
+
+.ShowContainerEdit .cardform form .cardinput label {
+    color: #5d5d5d;
+    font-size: 10pt;
+}
+
+.ShowContainerEdit .cardform .cardinput input {
+    height: 30px;
+    border: 1px solid #7c7c7c;
+    border-radius: 5px;
+
+}
+
+.ShowContainerEdit .cardform .cardinput button {
+    background-color: var(--c1);
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+}
+
+.ShowContainerEdit .card_enterprise .uploadbtnimg {}
+
+.ShowContainerEdit .card_enterprise .uploadbtnimg {}
+
+.ShowContainerEdit .card_enterprise .uploadbtnimg::-webkit-file-upload-button {
+    background-color: var(--c1);
+}
+
+
+.ShowContainerEdit .cardform .card_enterprise .img {}

@@ -1,0 +1,482 @@
+@import url(../../../../assets/_css/includes/includes.cores-fonte.css);
+
+.containerMainUser {
+    margin-left: 80px;
+    padding: 16px 20px 32px;
+}
+
+.containerMainUser .containerControles {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 1040px;
+    min-width: 350px;
+    margin: 0 auto 16px auto;
+}
+
+.containerMainUser .containerControles button {
+    border: none;
+    color: #fff;
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    padding: 8px 18px;
+    font-weight: 500;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.15);
+    display: flex;
+    margin-right: 10px;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.containerMainUser .containerControles button svg {
+    font-size: 16px;
+}
+
+.containerMainUser .containerContent {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 16px;
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+.containerMainUser .containerContent .user {
+    width: 260px;
+    min-height: 110px;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 10px 8px;
+    box-sizing: border-box;
+    transition: transform .15s ease-in, box-shadow .15s ease-in;
+    background-color: #ffffff;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.containerMainUser .containerContent .user:hover {
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+    transform: translateY(-2px);
+}
+
+.containerMainUser .containerContent .user .info {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.containerMainUser .containerContent .user .info>div {
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+}
+
+.containerMainUser .containerContent .user .info>div .img {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+
+}
+
+.containerMainUser .containerContent .user .info>div .datas {
+
+    width: 100%;
+    align-self: center;
+    padding-left: 5px;
+
+}
+
+.containerMainUser .containerContent .user .info>div .datas span {
+    display: block;
+}
+
+.containerMainUser .containerContent .user .info>div .datas .nome_user {
+    font-weight: 600;
+    font-size: 11px;
+    color: #0f172a;
+}
+
+.containerMainUser .containerContent .user .info>div .datas .email_user {
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.containerMainUser .containerContent .user .info>div .datas button {
+    border: none;
+    cursor: pointer;
+    background-color: #e0f2fe;
+    padding: 4px 8px;
+    border-radius: 999px;
+    margin-top: 6px;
+}
+
+.containerMainUser .containerContent .user .info>div .datas button a {
+    text-decoration: none;
+    color: #0369a1;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.containerMainUser .containerContent .user .controller {}
+
+.containerMainUser .containerContent .user .controller strong {
+    border: 1px solid var(--c12);
+    font-size: 10px;
+    border-radius: 999px;
+    min-width: 48px;
+    margin: auto;
+    padding: 3px 6px;
+    display: block;
+    background-color: var(--c11);
+    text-align: center;
+}
+
+.containerMainUser .containerContent .user .controller button {
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+    border-radius: 999px;
+    display: block;
+    margin: 3px auto;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #f9fafb;
+    transition: background-color .15s ease-in, color .15s ease-in, border-color .15s ease-in;
+}
+
+.containerMainUser .containerContent .user .controller button:hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+}
+
+.containerActions,
+.containerVisualizar {
+    width: 0px;
+    overflow: hidden;
+    overflow-y: auto;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    transition: width .4s ease-in-out;
+    background-color: #ffffff;
+    height: 100vh;
+    box-shadow: 0px 0px 10px #c6c6c6;
+}
+
+.showDisplayTrueActions,
+.showDisplayTrueVisualizar {
+    padding: 10px;
+    width: 500px;
+}
+
+.containerVisualizar .cardClose,
+.containerAdd .cardClose,
+.containerActions .cardClose {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.containerVisualizar .cardClose svg {
+    cursor: pointer;
+    font-size: 20pt;
+}
+
+.containerActions .cardFormActions {
+    height: 100%;
+   
+}
+.containerActions .cardFormActions >form{
+    height: 100%;
+    overflow-y: auto;
+
+}
+/*
+CONFIGURAÇÕES DE PERMISSÕES USUARIO
+*/
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    font-family: 'Inter', sans-serif;
+}
+
+.userHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background: #e8ecf4;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userHeader h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #1f2937;
+}
+
+.userHeader p {
+    margin: 0;
+    color: #6b7280;
+}
+
+.pageTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: #1e2a3b;
+}
+
+.permissionsPanel {
+    border-top: 1px solid #ececec;
+    padding-top: 20px;
+
+ 
+}
+
+.permissionSection {
+    margin-bottom: 30px;
+ 
+}
+
+.permissionSection h3 {
+    font-size: 17px;
+    color: #1f2937;
+    margin-bottom: 15px;
+}
+
+.permissionRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.permissionRow span {
+    color: #414b5a;
+    font-size: 15px;
+}
+.permissionRow   button{
+    background-color: #414b5a;
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    width: 80px;
+}
+
+/* Switch */
+.switch {
+    position: relative;
+    width: 46px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #ccc;
+    border-radius: 24px;
+    transition: 0.4s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #0369a1;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+div .saveBtn {
+    width: 100px;
+    margin-top: 30px;
+    padding: 5px;
+    background: #0369a1;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+div .saveBtn:hover {
+    background: #2f46c2;
+}
+
+
+/*
+Painel Adicionar Usuario
+*/
+.containerAdd {
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0vw;
+    height: 0px;
+    background-color: #00000045;
+    z-index: 1;
+
+    transition: all .5s ease-in-out;
+}
+
+.showDisplayTrueAdd {
+    background-color: #00000077;
+    width: 100vw;
+
+    height: 100vh;
+    top: 0%;
+    left: 0%;
+    transform: translate(0%, 0%);
+}
+
+.containerAdd .cardFormAdd {
+    background-color: #fff;
+    width: 420px;
+    height: 96%;
+    border-radius: 16px;
+    padding: 18px 18px 20px;
+    box-shadow: 0px 22px 60px rgba(15, 23, 42, 0.35);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.containerAdd .cardFormAdd>form {
+    height: 100%;
+    overflow-y: auto;
+
+}
+
+.containerAdd .cardFormAdd div h2 {
+    font-size: 18pt;
+    text-align: center;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.containerAdd .cardFormAdd .controllerInput {
+    display: grid;
+    width: 80%;
+    margin: 0px auto;
+    padding: 0px;
+}
+
+.containerAdd .cardFormAdd .controllerInput input[type="submit"]{
+
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    color: #fff;
+    width: 80%;
+    margin: auto;
+    font-size: 12pt;
+    padding: 10px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+}
+
+.containerAdd .cardFormAdd .controllerInput input,
+.containerAdd .cardFormAdd .controllerInput select {
+    border: 1px solid #e5e7eb;
+    box-shadow: 0px 0px 0px transparent;
+    outline: none;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    transition: all .5s ease-in-out;
+
+}
+
+.containerAdd .cardFormAdd .controllerInput input:focus,
+.containerAdd .cardFormAdd .controllerInput select:focus {
+    box-shadow: 0px 0px 0px rgba(37, 99, 235, 0.2);
+    border-color: var(--c1);
+}
+
+.containerAdd .cardFormAdd .controllerInput input::-webkit-file-upload-button {
+    background-image: conic-gradient(#0369a1, #0f172a);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 10px;
+}
+
+.containerAdd .cardFormAdd .controllerInput label {
+    margin-bottom: 5px;
+    font-size: 10pt;
+    color: #4b5563;
+}
+
+.uploadStatus {
+    font-size: 10px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .containerMainUser {
+        margin-left: 60px;
+        padding: 12px;
+    }
+
+    .containerMainUser .containerContent {
+        justify-content: center;
+    }
+
+    .containerMainUser .containerContent .user {
+        width: 100%;
+        max-width: 360px;
+    }
+}

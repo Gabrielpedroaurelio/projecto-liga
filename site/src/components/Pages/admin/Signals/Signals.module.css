@@ -1,0 +1,413 @@
+@import url(../../../../assets/_css/includes/includes.cores-fonte.css);
+
+.containerSignals {
+    margin-left: 50px;
+    padding: 16px 10px 24px;
+}
+
+.containerSignals .barsearch {
+    background-color: #fff;
+    box-shadow: 0px 8px 22px rgba(15, 23, 42, 0.08);
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-radius: 999px;
+    padding: 8px 12px;
+    max-width: 380px;
+    margin: 8px auto 14px auto;
+}
+
+.containerSignals .barsearch svg {
+    color: #272727;
+}
+
+.containerSignals .barsearch input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 5px 5px 5px 10px;
+
+}
+
+.containerSignals .controllers {
+    padding: 4px 10px 8px 10px;
+    width: 95%;
+    gap: 8px;
+    margin: 0 auto 8px auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.containerSignals .controllers button {
+    padding: 6px 10px;
+    min-width: 80px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.btnFaFileExcel {
+    background-color: #22c55e;
+    color: #fff;
+}
+
+.btnFaFilePdf {
+    background-color: #ef4444;
+    color: #fff;
+}
+
+.btnFaPlus {
+    background-color: #2563eb;
+    color: #fff;
+}
+
+.listSignals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    width: 97%;
+    gap: 14px;
+}
+
+.listSignals .Signal {
+    margin: 0;
+    height: 210px;
+    width: 240px;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    display: grid;
+    grid-template-columns: 78% 22%;
+    overflow: hidden;
+    transition: transform .15s ease-in, box-shadow .15s ease-in;
+}
+
+.listSignals .Signal>div {
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.listSignals .Signal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.listSignals .Signal .infoSignal {}
+
+.listSignals .Signal .infoSignal .video {
+    height: 130px;
+    width: 170px;
+    margin: 8px auto 4px auto;
+    border-radius: 10px;
+    background-color: #0f172a;
+    overflow: hidden;
+}
+
+.listSignals .Signal .infoSignal .video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.listSignals .Signal .content {
+    padding: 8px;
+    margin-top: 2px;
+
+}
+
+.listSignals .Signal .infoSignal .content span {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.listSignals .Signal .infoSignal .content .category {
+    display: inline-block;
+    background-color: #dbeafe;
+    font-size: 10px;
+    border-radius: 999px;
+    margin-top: 4px;
+    padding: 2px 8px;
+    font-weight: 500;
+    color: #1d4ed8;
+}
+
+.listSignals .Signal .controllersSignal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listSignals .Signal .controllersSignal svg {
+    display: block;
+    margin: 4px;
+    border-radius: 999px;
+    padding: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    transition: background-color .15s ease-in, border-color .15s ease-in, color .15s ease-in;
+}
+
+.listSignals .Signal .controllersSignal svg:hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+@media (max-width: 768px) {
+    .containerSignals {
+        margin-left: 60px;
+        padding: 12px 8px 20px;
+    }
+
+    .listSignals .Signal {
+        width: 100%;
+        max-width: 360px;
+    }
+}
+
+
+.modalAdd {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.cardAdd {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    height: 90%;
+    overflow: hidden;
+    overflow-y: scroll;
+    animation: aparecer 0.3s ease-out;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.cardAdd h3 {
+    color: #333333;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #eeeeee;
+    padding-bottom: 10px;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.cardAdd form label {
+    display: block;
+    margin-bottom: 0px;
+    font-weight: 500;
+    color: #555555;
+    font-size: 0.95em;
+    background-color: #ffffff;
+}
+
+.cardAdd form input[type="text"],
+.cardAdd form textarea,
+.cardAdd form select {
+    width: 100%;
+    display: block;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardAdd form input:focus,
+.cardAdd form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.cardAdd form textarea {
+    resize: none;
+    min-height: 100px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eeeeee;
+}
+
+.actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+
+.actions button[type="button"] {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.actions button[type="button"]:hover {
+    background-color: #dae0e5;
+}
+
+
+.actions button[type="submit"] {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.actions button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.actions button:active {
+    transform: scale(0.98);
+}
+
+input[type="file"] {
+    margin-top: 5px;
+    border: 1px solid;
+    border-color: #007bff70;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+    border-radius: 6px;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-image: conic-gradient(#005, #005bff);
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+}
+
+.ContainerViewSignal {
+    background-color: #00000059;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0px;
+}
+
+.ContainerViewSignal .cardViewSignal {
+    background-color: #fff;
+    width: 400px;
+    height: 300px;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.ContainerViewSignal .cardViewSignal .CardVideo {
+    grid-area: 1/1/1/1;
+    position: relative;
+    overflow: hidden;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.ContainerViewSignal .cardViewSignal .CardVideo video,
+.ContainerViewSignal .cardViewSignal .CardVideo img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #005;
+}
+
+.ContainerViewSignal .cardViewSignal .CardMeaning {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    grid-area: 1/2/1/2;
+    font-size: 12px;
+    padding: 20px;
+}
+
+.ContainerViewSignal .cardViewSignal .CardMeaning h3 {
+    color: #0f172a;
+    font-weight: 600;
+    padding: 10px 10px 10px 0px;
+}
+
+.ContainerViewSignal .cardViewSignal .CardMeaning span:nth-child(2) {
+    padding: 5px;
+    width: max-content;
+    display: block;
+    background-color: var(--c11);
+    border-radius: 10px;
+    border: 1px solid var(--c12);
+    font-size: 10px;
+    color: #004118;
+
+}
+
+.ContainerViewSignal .cardViewSignal .CardMeaning span:last-child {
+    display: block;
+    padding: 5px 10px 5px 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: #0f172a;
+    color: #fff;
+    border-radius: 5px;
+    width: max-content;
+
+}
+
+.ContainerViewSignal .cardViewSignal .CardContext {
+    grid-area: 2/1/2/3;
+    color: #111827;
+    padding: 10px;
+    
+}
+.ContainerViewSignal .cardViewSignal .CardContext h3{
+    font-weight: 500;
+}
+.ContainerViewSignal .cardViewSignal .CardContext p{
+    padding: 10px;
+    text-indent: 5px;
+    text-align: justify;
+    font-size: 12px;
+}
