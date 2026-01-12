@@ -14,9 +14,11 @@ import { BsTelephone, BsTelephoneFill } from "react-icons/bs";
 import ParagrafoErro from '../../../Elements/ParagrafoErro/ParagrafoErro'
 import { enterpriseService } from '../../../../services/appServices';
 import { GetURL } from '../../../../services/ModelServices';
-import useGetData from "../../../Hooks/useGetData";
 
-export default function Enterprises(params) {
+
+
+export default function Enterprises() {
+
     const URL = GetURL();
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         defaultValues: {
@@ -35,7 +37,31 @@ export default function Enterprises(params) {
     const [empresaSelecionada, setEmpresaSelecionada] = useState(null);
     const [file, setFile] = useState(null);
     const [empresas, setEmpresas] = useState([]);
-    const [uploadStatus, setUploadStatus] = useState("");
+
+
+    const [search, setSearch] = useState("");
+
+    const filtered = empresas.filter(emp =>
+        emp.nome_instituicao?.toLowerCase().includes(search.toLowerCase()) ||
+        emp.email_instituicao?.toLowerCase().includes(search.toLowerCase())
+    );
+
+    const HighlightText = (text, query) => {
+        if (!query) return text;
+        const parts = text.split(new RegExp(`(${query})`, 'gi'));
+        return (
+            <>
+                {parts.map((part, i) =>
+                    part.toLowerCase() === query.toLowerCase() ? (
+                        <mark key={i} className={style.highlight}>{part}</mark>
+                    ) : (
+                        part
+                    )
+                )}
+            </>
+        );
+    };
+
 
     useEffect(() => {
         loadEnterprises();
@@ -78,12 +104,12 @@ export default function Enterprises(params) {
         try {
             let payload = { ...data };
             if (file) {
-                setUploadStatus("Enviando logo...");
                 const uploadRes = await enterpriseService.upload(file);
                 if (uploadRes && uploadRes.sucesso) {
                     payload.path_logo = uploadRes.path;
                 }
             }
+
             delete payload.file; // Remove FileList do payload
 
             const response = await enterpriseService.create(payload);
@@ -126,52 +152,74 @@ export default function Enterprises(params) {
         }
     }
 
-    const empresa = {
-        "empresa": "ANSA",
-        "email": "ansa@gmail.com",
-        "telefone": '999 999 999',
-        "localizacao": {
-            "provincia": "Luanda",
-            "municipio": "Luanda",
-            "bairro": "Luanda",
-        },
-        "status": "Activo"
+    async function DeletarInstituicao(id) {
+        if (window.confirm("Deseja realmente excluir esta instituição?")) {
+            try {
+                const res = await enterpriseService.delete(id);
+                if (res && res.sucesso) {
+                    alert("Instituição excluída com sucesso!");
+                    loadEnterprises();
+                } else {
+                    alert("Erro ao excluir: " + (res?.erro || "Erro desconhecido"));
+                }
+            } catch (error) {
+                console.error("Erro ao deletar:", error);
+                alert("Erro de conexão.");
+            }
+        }
     }
+
 
     return (
         <>
             <NavBarAdmin></NavBarAdmin>
             <SideBarAdmin></SideBarAdmin>
             <main className={style.containerEnterprise}>
-                <div className={style.containerController}>
-                    <button onClick={toggleAdd}><FaPlus />Adicionar</button>
+                <div className={style.headerEnterprise}>
+                    <div className={style.barsearch}>
+                        <input
+                            type="text"
+                            placeholder="Pesquisar instituição..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </div>
+                    <div className={style.containerController}>
+                        <button onClick={toggleAdd} className={style.btnAddManually}><FaPlus /> Adicionar</button>
+                    </div>
                 </div>
                 <div className={style.listEnterprise}>
-                    {empresas.length > 0 ? empresas.map((empresa) => (
-                        <div key={empresa.id_instituicao} className={style.enterprise}>
-                            <div>
+                    {filtered.length > 0 ? filtered.map((empresa, index) => (
+                        <div
+                            key={empresa.id_instituicao}
+                            className={style.enterprise}
+                            style={{ animationDelay: `${index * 0.05}s` }}
+                        >
+                            <div className={style.enterpriseCardInner}>
                                 <div className={style.info}>
                                     <div className={style.img}>
-                                        <img src={empresa.path_logo ? (empresa.path_logo.startsWith('http') ? empresa.path_logo : `${URL}${empresa.path_logo}`) : logo} alt="" width={50} />
+                                        <img src={empresa.path_logo ? (empresa.path_logo.startsWith('http') ? empresa.path_logo : `${URL}${empresa.path_logo}`) : logo} alt="" />
                                     </div>
                                     <div className={style.datas}>
-                                        <span>{empresa.nome_instituicao}</span>
-                                        <span>{empresa.email_instituicao}</span>
+                                        <span className={style.entName}>{HighlightText(empresa.nome_instituicao, search)}</span>
+                                        <span className={style.entEmail}>{HighlightText(empresa.email_instituicao, search)}</span>
+                                        <span className={style.entPhone}><MdPhone /> {empresa.telefone}</span>
                                     </div>
                                 </div>
 
                                 <div className={style.option}>
-                                    <button onClick={() => toggleView(empresa)}>Ver Mais</button>
-                                    <button onClick={() => toggleEdit(empresa)}>Editar</button>
+                                    <button onClick={() => toggleView(empresa)} title="Ver Detalhes"><MdPreview size={20} /></button>
+                                    <button onClick={() => toggleEdit(empresa)} title="Editar"><MdEdit size={20} /></button>
+                                    <button onClick={() => DeletarInstituicao(empresa.id_instituicao)} title="Excluir" className={style.btnDelete}><MdDelete size={20} /></button>
                                 </div>
                             </div>
                         </div>
                     )) : (
-                        <div className={style.noData}>Nenhuma instituição cadastrada.</div>
+                        <div className={style.noData}>Nenhuma instituição encontrada.</div>
                     )}
                 </div>
-
             </main>
+
             <div className={style.containerEdit + `  ${showEdit ? style.ShowContainerEdit : ""}`}>
                 <div className={style.cardClose}>
                     <MdClose onClick={toggleEdit} />
@@ -271,8 +319,8 @@ export default function Enterprises(params) {
                                 onChange={(e) => {
                                     const selected = e.target.files && e.target.files[0];
                                     setFile(selected || null);
-                                    setUploadStatus("");
                                 }}
+
                             />
                             {
 
@@ -426,8 +474,8 @@ export default function Enterprises(params) {
                                 onChange={(e) => {
                                     const selected = e.target.files && e.target.files[0];
                                     setFile(selected || null);
-                                    setUploadStatus("");
                                 }}
+
                             />
                             {
 

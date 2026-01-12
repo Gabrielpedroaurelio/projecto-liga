@@ -30,34 +30,139 @@
 .containerEnterprise .listEnterprise {
     display: flex;
     flex-wrap: wrap;
-    padding: 10px;
-}
-
-.containerEnterprise .listEnterprise .enterprise {
-    width: 300px;
-    height: 130px;
-    box-shadow: #bbbdbf 5px 10px 20px 0px;
-    overflow: hidden;
-    border-radius: 5px;
-    display: flex;
+    gap: 20px;
+    width: 95%;
+    margin: 0 auto;
     justify-content: center;
-    align-items: center;
-    margin: 5px;
-    background-color: #fff;
-
 }
 
-.containerEnterprise .listEnterprise .enterprise .info {
+.enterprise {
+    background-color: #fff;
+    width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: slideUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.enterprise:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.enterpriseCardInner {
+    padding: 20px;
+}
+
+.info {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.img {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background-color: #f8fafc;
     display: flex;
     align-items: center;
-    width: 280px;
-
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid #f1f5f9;
 }
 
-.containerEnterprise .listEnterprise .enterprise .info .datas {
+.img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
 
+.datas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.entName {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.entEmail {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.entPhone {
+    font-size: 12px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.option {
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 15px;
+}
+
+.option button {
+    flex: 1;
+    border: none;
+    background-color: #f8fafc;
+    color: #475569;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.option button:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+.btnDelete:hover {
+    background-color: #fef2f2 !important;
+    color: #ef4444 !important;
+}
+
+.highlight {
+    background-color: #fde68a;
+    color: #92400e;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.noData {
     width: 100%;
-    padding-left: 10px;
+    text-align: center;
+    padding: 40px;
+    color: #64748b;
+    font-style: italic;
 }
 
 .containerEnterprise .listEnterprise .enterprise .info .datas span:nth-child(1) {
@@ -285,6 +390,59 @@ input[type="file"] {
     justify-content: flex-end;
     padding: 10px;
 
+}
+
+.headerEnterprise {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin: 0 auto 20px;
+    padding: 0 10px;
+}
+
+.barsearch {
+    background-color: #fff;
+    box-shadow: 0px 8px 22px rgba(15, 23, 42, 0.08);
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-radius: 999px;
+    padding: 8px 16px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.barsearch input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.containerEnterprise .containerController {
+    margin: 0;
+}
+
+.btnAddManually {
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.btnAddManually:hover {
+    background-color: #1d4ed8;
 }
 
 /*

@@ -78,7 +78,7 @@ export default function Category() {
     return (
         <>
             <NavBarAdmin />
-            <SideBarAdmin /> {/* Assuming this is the search bar/top bar component */}
+
             <main className={style.containerCategory}>
                 <div className={style.header}>
                     <h1>Gerir Categorias</h1>

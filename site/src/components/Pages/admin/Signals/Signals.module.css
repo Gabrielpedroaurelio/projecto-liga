@@ -97,9 +97,27 @@
 }
 
 .listSignals .Signal:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
 }
+
+.Signal {
+    animation: slideUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 .listSignals .Signal .infoSignal {}
 
@@ -141,6 +159,38 @@
     font-weight: 500;
     color: #1d4ed8;
 }
+
+.listSignals .Signal .infoSignal .content .enterprise {
+    display: block;
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+.tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.tagPill {
+    background-color: #f1f5f9;
+    color: #475569;
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+    border: 1px solid #e2e8f0;
+}
+
+.highlight {
+    background-color: #fde68a;
+    color: #92400e;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
 
 .listSignals .Signal .controllersSignal {
     display: flex;
@@ -198,10 +248,11 @@
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    width: 500px;
+    max-width: 95%;
     height: 90%;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     animation: aparecer 0.3s ease-out;
 }
 
@@ -219,20 +270,26 @@
 
 .cardAdd h3 {
     color: #333333;
-    margin-bottom: 25px;
-    border-bottom: 2px solid #eeeeee;
-    padding-bottom: 10px;
+    margin: 0;
     font-size: 1.5em;
     font-weight: 600;
 }
 
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #eeeeee;
+    padding-bottom: 10px;
+}
+
 .cardAdd form label {
     display: block;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     font-weight: 500;
     color: #555555;
     font-size: 0.95em;
-    background-color: #ffffff;
 }
 
 .cardAdd form input[type="text"],
@@ -240,7 +297,7 @@
 .cardAdd form select {
     width: 100%;
     display: block;
-    padding: 5px;
+    padding: 8px 12px;
     margin-top: 5px;
     border: 1px solid #cccccc;
     border-radius: 6px;
@@ -250,15 +307,22 @@
 }
 
 .cardAdd form input:focus,
-.cardAdd form textarea:focus {
+.cardAdd form textarea:focus,
+.cardAdd form select:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
     outline: none;
 }
 
 .cardAdd form textarea {
-    resize: none;
-    min-height: 100px;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.gridForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
 }
 
 .actions {
@@ -279,135 +343,234 @@
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-
-.actions button[type="button"] {
+.cancelBtn {
     background-color: #e9ecef;
     color: #495057;
 }
 
-.actions button[type="button"]:hover {
+.cancelBtn:hover {
     background-color: #dae0e5;
 }
 
-
-.actions button[type="submit"] {
-    background-color: #007bff;
+.saveBtn {
+    background-color: #2563eb;
     color: #ffffff;
 }
 
-.actions button[type="submit"]:hover {
-    background-color: #0056b3;
+.saveBtn:hover {
+    background-color: #1d4ed8;
 }
 
 .actions button:active {
     transform: scale(0.98);
 }
 
+.uploadProgress {
+    font-size: 12px;
+    color: #2563eb;
+    margin: 8px 0;
+    min-height: 18px;
+}
+
 input[type="file"] {
     margin-top: 5px;
-    border: 1px solid;
-    border-color: #007bff70;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-    outline: none;
-    border-radius: 6px;
+    width: 100%;
 }
 
-input[type="file"]::-webkit-file-upload-button {
-    background-image: conic-gradient(#005, #005bff);
-    padding: 7px 10px;
-    border-radius: 5px;
-    border: none;
-    color: #fff;
-}
-
+/* Modal de Visualização Refinado */
 .ContainerViewSignal {
-    background-color: #00000059;
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0px;
+    left: 0;
+    z-index: 1100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ContainerViewSignal .cardViewSignal {
     background-color: #fff;
-    width: 400px;
-    height: 300px;
-    border-radius: 4px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-}
-
-.ContainerViewSignal .cardViewSignal .CardVideo {
-    grid-area: 1/1/1/1;
-    position: relative;
+    width: 90%;
+    max-width: 600px;
+    min-height: 450px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-    padding: 5px;
-    box-sizing: border-box;
+    position: relative;
 }
 
-.ContainerViewSignal .cardViewSignal .CardVideo video,
-.ContainerViewSignal .cardViewSignal .CardVideo img {
-    border-radius: 10px;
+.cardHeader {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.closeBtn {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #1e293b;
+    transition: all 0.2s;
+}
+
+.closeBtn:hover {
+    background: #fff;
+    transform: rotate(90deg);
+}
+
+.CardVideo {
+    width: 100%;
+    height: 300px;
+    background-color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.CardVideo video {
     width: 100%;
     height: 100%;
-    background-color: #005;
+    object-fit: contain;
 }
 
-.ContainerViewSignal .cardViewSignal .CardMeaning {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    grid-area: 1/2/1/2;
-    font-size: 12px;
+.avatarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
     padding: 20px;
-}
-
-.ContainerViewSignal .cardViewSignal .CardMeaning h3 {
-    color: #0f172a;
-    font-weight: 600;
-    padding: 10px 10px 10px 0px;
-}
-
-.ContainerViewSignal .cardViewSignal .CardMeaning span:nth-child(2) {
-    padding: 5px;
-    width: max-content;
-    display: block;
-    background-color: var(--c11);
-    border-radius: 10px;
-    border: 1px solid var(--c12);
-    font-size: 10px;
-    color: #004118;
-
-}
-
-.ContainerViewSignal .cardViewSignal .CardMeaning span:last-child {
-    display: block;
-    padding: 5px 10px 5px 10px;
-    margin-top: 5px;
-    cursor: pointer;
-    background-color: #0f172a;
     color: #fff;
-    border-radius: 5px;
-    width: max-content;
-
 }
 
-.ContainerViewSignal .cardViewSignal .CardContext {
-    grid-area: 2/1/2/3;
-    color: #111827;
-    padding: 10px;
-    
+.avatarThumb {
+    max-width: 200px;
+    max-height: 180px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
-.ContainerViewSignal .cardViewSignal .CardContext h3{
+
+.modelLink a {
+    background-color: #2563eb;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
     font-weight: 500;
 }
-.ContainerViewSignal .cardViewSignal .CardContext p{
-    padding: 10px;
-    text-indent: 5px;
-    text-align: justify;
+
+.placeholder {
+    color: #64748b;
+}
+
+.CardMeaning {
+    padding: 20px 24px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.CardMeaning h3 {
+    font-size: 24px;
+    color: #0f172a;
+    margin: 0;
+}
+
+.catBatch {
+    background-color: #dbeafe;
+    color: #1e40af;
+    padding: 4px 12px;
+    border-radius: 999px;
     font-size: 12px;
+    font-weight: 600;
+}
+
+.switchView {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 8px;
+    gap: 4px;
+}
+
+.switchView button {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    color: #64748b;
+    transition: all 0.2s;
+}
+
+.switchView button.active {
+    background: #fff;
+    color: #2563eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.CardContext {
+    padding: 10px 24px 24px;
+}
+
+.CardContext h3 {
+    font-size: 14px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.CardContext hr {
+    border: none;
+    border-top: 1px solid #f1f5f9;
+    margin-bottom: 12px;
+}
+
+.CardContext p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #334155;
+    margin: 0;
+}
+
+.sourceInfo {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #64748b;
+    background: #f8fafc;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.modelViewerContainer {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+}
+
+.modelViewer {
+    width: 100%;
+    height: 100%;
+    --poster-color: transparent;
 }

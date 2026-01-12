@@ -3,20 +3,21 @@ import { useEffect, useState } from "react";
 import { MdAdd, MdClose, MdDelete, MdEdit, MdPreview } from 'react-icons/md';
 import NavBarAdmin from "../../../Elements/NavBarAdmin/NavBarAdmin";
 import SideBarAdmin from "../../../Elements/SideBarAdmin/SideBarAdmin";
-import pessoa from '../../../../assets/_images/people02.png';
 import style from './Users.module.css';
-import { userService } from '../../../../services/appServices';
+import { userService, permissionService } from '../../../../services/appServices';
 import { GetURL } from '../../../../services/ModelServices';
 import { FaEye, FaFileExcel, FaFilePdf, FaFileWord } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { FiShield, FiShieldOff, FiUser } from "react-icons/fi";
 import ParagrafoErro from '../../../Elements/ParagrafoErro/ParagrafoErro';
 import { BiSolidUserX, BiSolidUserCheck, BiUnite } from "react-icons/bi";
+import { api } from '../../../../services/api';
 
-export default function Users({ usuarioLogado }) {
+export default function Users() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const [usuarios, setUsuarios] = useState([]);
+  const [usuariosFiltrados, setUsuariosFiltrados] = useState([]);
   const [perfis, setPerfis] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
   const [showAction, setShowActions] = useState(false);
@@ -24,6 +25,9 @@ export default function Users({ usuarioLogado }) {
   const [usuarioSelecionado, setUsuarioSelecionado] = useState({});
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [permissoesDisponiveis, setPermissoesDisponiveis] = useState([]);
+  const [permissoesUsuario, setPermissoesUsuario] = useState([]);
   const URLs = GetURL();
 
   // Carregar usuários
@@ -38,6 +42,9 @@ export default function Users({ usuarioLogado }) {
       if (res && res.sucesso) {
         console.log(res.msm);
         setUsuarios(res.usuario || []);
+        setUsuariosFiltrados(res.usuario || []);
+        console.log(res.usuario);
+
       }
     } catch (error) {
       console.error("Erro ao carregar usuários:", error);
@@ -50,8 +57,11 @@ export default function Users({ usuarioLogado }) {
       try {
         console.log("Carregando perfis...");
         const res = await userService.getProfiles();
-        if (res && res.sucesso && res.datas) {
-          setPerfis(res.datas || []);
+        console.log("Resposta perfis:", res);
+        if (res && res.sucesso) {
+          // O backend retorna 'datas' não 'perfis'
+          setPerfis(res.datas.perfis);
+          console.log("Perfis carregados:", res.datas.perfis);
         }
       } catch (error) {
         console.error("Erro ao carregar perfis:", error);
@@ -59,12 +69,153 @@ export default function Users({ usuarioLogado }) {
     })();
   }, []);
 
-  const toggleAdd = () => setShowAdd(prev => !prev);
-  const toggleActions = () => setShowActions(prev => !prev);
-  const toggleView = (usuario = null) => {
-    setUsuarioSelecionado(usuario);
-    setShowView(prev => !prev);
+  // Função de pesquisa
+  const handleSearch = (term) => {
+    //setSearchTerm(term);
+
+    if (!term || term.trim() === "") {
+      // Se não há termo de pesquisa, mostra todos os usuários
+      setUsuariosFiltrados(usuarios);
+    } else {
+      // Filtra usuários usando includes (case-insensitive)
+      const termLower = term.toLowerCase();
+      const filtrados = usuarios.filter(usuario =>
+        usuario.nome_completo?.toLowerCase().includes(termLower) ||
+        usuario.email?.toLowerCase().includes(termLower)
+      );
+      setUsuariosFiltrados(filtrados);
+    }
   };
+
+  const toggleAdd = () => setShowAdd(prev => !prev);
+
+  const toggleActions = async (usuario = null) => {
+    if (usuario && !showAction) {
+      // Abrindo modal - carregar dados
+      setUsuarioSelecionado(usuario);
+      setShowActions(true);
+      // Carregar permissões após abrir o modal
+      await carregarPermissoes(usuario.id_usuario);
+    } else {
+      // Fechando modal - limpar dados
+      setShowActions(false);
+      setUsuarioSelecionado({});
+      setPermissoesDisponiveis([]);
+      setPermissoesUsuario([]);
+    }
+  };
+
+  const toggleView = (usuario = null) => {
+    if (usuario && !showView) {
+      // Abrindo modal
+      setUsuarioSelecionado(usuario);
+      setShowView(true);
+    } else {
+      // Fechando modal
+      setShowView(false);
+      setUsuarioSelecionado({});
+    }
+  };
+
+  // Carregar todas as permissões disponíveis e as do usuário
+  async function carregarPermissoes(id_usuario) {
+    try {
+      setLoading(true);
+      console.log("Carregando permissões para usuário:", id_usuario);
+
+      // Carregar todas as permissões disponíveis
+      const resPermissoes = await permissionService.list();
+      console.log("Permissões disponíveis:", resPermissoes);
+      if (resPermissoes && resPermissoes.sucesso) {
+        setPermissoesDisponiveis(resPermissoes.permissoes || []);
+      }
+
+      // Carregar permissões do usuário
+      const resUsuarioPermissoes = await permissionService.getUserPermissions(id_usuario);
+      console.log("Permissões do usuário:", resUsuarioPermissoes);
+      if (resUsuarioPermissoes && resUsuarioPermissoes.sucesso) {
+        setPermissoesUsuario(resUsuarioPermissoes.permissoes || []);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar permissões:", error);
+      alert("Erro ao carregar permissões: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Verificar se usuário tem uma permissão específica
+  function usuarioTemPermissao(id_permissao) {
+    return permissoesUsuario.some(p => p.id_permissao === id_permissao);
+  }
+
+  // Adicionar ou remover permissão
+  async function togglePermissao(id_permissao) {
+    if (!usuarioSelecionado || !usuarioSelecionado.id_usuario) {
+      alert("Nenhum usuário selecionado!");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const temPermissao = usuarioTemPermissao(id_permissao);
+
+      if (temPermissao) {
+        // Remover permissão
+        const permissaoUsuario = permissoesUsuario.find(p => p.id_permissao === id_permissao);
+        //console.log("Removendo permissão:", permissaoUsuario);
+        const res = await permissionService.removeFromUser(permissaoUsuario.id_permissao_usuario);
+        if (res && res.sucesso) {
+          //alert("Permissão removida com sucesso!");
+          // Recarregar permissões para atualizar o estado
+          await carregarPermissoes(usuarioSelecionado.id_usuario);
+        } else {
+          //alert("Erro ao remover permissão: " + (res?.mensagem || "Erro desconhecido"));
+        }
+      } else {
+        // Adicionar permissão
+        console.log("Adicionando permissão:", { id_usuario: usuarioSelecionado.id_usuario, id_permissao });
+        const res = await permissionService.assignToUser({
+          id_usuario: usuarioSelecionado.id_usuario,
+          id_permissao: id_permissao
+        });
+        if (res && res.sucesso) {
+          //alert("Permissão adicionada com sucesso!");
+          // Recarregar permissões para atualizar o estado
+          await carregarPermissoes(usuarioSelecionado.id_usuario);
+        } else {
+          alert("Erro ao adicionar permissão: " + (res?.mensagem || "Erro desconhecido"));
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao alterar permissão:", error);
+      alert("Erro ao alterar permissão: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Atualizar status do usuário
+  async function atualizarStatus(novoStatus) {
+    try {
+      setLoading(true);
+      const res = await userService.update(usuarioSelecionado.id_usuario, {
+        ...usuarioSelecionado,
+        status_usuario: novoStatus
+      });
+
+      if (res && res.sucesso) {
+        alert("Status atualizado com sucesso!");
+        setUsuarioSelecionado({ ...usuarioSelecionado, status_usuario: novoStatus });
+        await loadUsers();
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar status:", error);
+      alert("Erro ao atualizar status.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function CadastrarUsuario(data) {
     try {
@@ -109,7 +260,7 @@ export default function Users({ usuarioLogado }) {
   return (
     <>
       <NavBarAdmin />
-      <SideBarAdmin />
+      <SideBarAdmin onSearch={handleSearch} />
       <main className={style.containerMainUser}>
         <div className={style.containerControles}>
           <button onClick={toggleAdd}><MdAdd /> Adicionar Usuário</button>
@@ -117,38 +268,52 @@ export default function Users({ usuarioLogado }) {
 
         <div className={style.containerContent}>
 
-          {usuarios.length <= 0 ? (
+          {usuariosFiltrados.length === 0 ? (
             <div className={style.user}>
               <div className={style.info}>
                 <div>
                   <div className={style.img}>
-                    <img src={pessoa} alt="" width={50} />
+
                   </div>
                   <div className={style.datas}>
                     <span className={style.nome_user}>
-                      {"Gabriel Pedro Aurelio"}
+                      Nenhum usuário encontrado
                     </span>
                     <span className={style.email_user}>
-                      {"gabrielpedroaurelio@gmail.com"}
+                      Adicione um novo usuário para começar
                     </span>
                   </div>
                 </div>
               </div>
-              <div className={style.controller}>
-                <strong>{"Activo"}</strong>
-                <button onClick={toggleActions} title='Ver Permissões'><FiShield /></button>
-                <button onClick={toggleView} title='Visualizar Usuario'><FaEye /></button>
-
-
-              </div>
             </div>
           ) : (
-            usuarios.map((usuario) => (
+            usuariosFiltrados.map((usuario) => (
               <div key={usuario.id_usuario} className={style.user}>
                 <div className={style.info}>
                   <div>
                     <div className={style.img}>
-                      <img src={usuario.path_img} alt="" width={50} />
+                      {usuario.path_img ? (
+                        <img
+                          src={`${api.baseUrl}${usuario.path_img}`}
+                          alt={usuario.nome_completo}
+                          width={50}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.nextSibling.style.display = 'flex';
+                          }}
+                        />
+                      ) : null}
+                      <div style={{
+                        display: usuario.path_img ? 'none' : 'flex',
+                        width: '50px',
+                        height: '50px',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: '#e0e0e0',
+                        borderRadius: '50%'
+                      }}>
+                        <FiUser size={25} color="#666" />
+                      </div>
                     </div>
                     <div className={style.datas}>
                       <span className={style.nome_user}>
@@ -157,16 +322,14 @@ export default function Users({ usuarioLogado }) {
                       <span className={style.email_user}>
                         {usuario.email}
                       </span>
-                      <button> <Link to="/admin/permissao"><FiShield /> Ver Permissões</Link> </button>
+
                     </div>
                   </div>
                 </div>
                 <div className={style.controller}>
                   <strong>{usuario.status_usuario}</strong>
-                  <button onClick={toggleActions}><MdEdit /></button>
-                  <button onClick={toggleView}><FaEye /></button>
-
-
+                  <button onClick={() => toggleView(usuario)}><FaEye /></button>
+                  <button onClick={() => toggleActions(usuario)}>   <FiShield /> </button>
                 </div>
               </div>
             ))
@@ -291,12 +454,20 @@ export default function Users({ usuarioLogado }) {
       <div className={`${style.containerVisualizar} ${showView ? style.showDisplayTrueVisualizar : style.showDisplayFalseVisualizar}`}>
         <div className={style.cardUser}>
           <div className={style.cardClose}>
-            <MdClose onClick={toggleView} />
+            <MdClose onClick={() => toggleView(null)} />
           </div>
 
           <div className={style.userHeader}>
             <div className={style.avatar}>
-              <FiUser size={35} />
+              {usuarioSelecionado?.path_img ? (
+                <img
+                  src={`${api.baseUrl}${usuarioSelecionado.path_img}`}
+                  alt={usuarioSelecionado.nome_completo}
+                  style={{ width: '70px', height: '70px', borderRadius: '50%', objectFit: 'cover' }}
+                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                />
+              ) : null}
+              <FiUser size={35} style={{ display: usuarioSelecionado?.path_img ? 'none' : 'block' }} />
             </div>
 
             <div>
@@ -330,27 +501,33 @@ export default function Users({ usuarioLogado }) {
                 <span>{Array.isArray(perfis) && perfis.find(p => p.id_perfil === usuarioSelecionado?.id_perfil)?.nome || "N/A"}</span>
               </div>
               <div className={style.permissionRow}>
-                <span>status</span>
-                <span>{usuarioSelecionado?.status_usuario}</span>
+                <span>Status</span>
+                <select
+                  value={usuarioSelecionado?.status_usuario || "Activo"}
+                  onChange={(e) => atualizarStatus(e.target.value)}
+                  disabled={loading}
+                  style={{ padding: '5px 10px', borderRadius: '4px', border: '1px solid #ccc' }}
+                >
+                  <option value="Activo">Activo</option>
+                  <option value="Inativo">Inativo</option>
+                  <option value="Banido">Banido</option>
+                </select>
               </div>
               <div className={style.permissionRow}>
                 <span>Ultimo Login</span>
-                <span>{usuarioSelecionado?.ultimo_login ? new Date(usuarioSelecionado.ultimo_login).toLocaleDateString() : "-"}</span>
-
+                <span>{usuarioSelecionado?.ultimo_login ? new Date(usuarioSelecionado.ultimo_login).toLocaleDateString('pt-PT') : "-"}</span>
               </div>
               <div className={style.permissionRow}>
                 <span>Ultima Actualização</span>
-                <span>{usuarioSelecionado?.atualizado_em ? new Date(usuarioSelecionado.atualizado_em).toLocaleDateString() : "-"}</span>
-
+                <span>{usuarioSelecionado?.atualizado_em ? new Date(usuarioSelecionado.atualizado_em).toLocaleDateString('pt-PT') : "-"}</span>
               </div>
               <div className={style.permissionRow}>
                 <span>Data Criação</span>
-                <span>{usuarioSelecionado?.criado_em ? new Date(usuarioSelecionado.criado_em).toLocaleDateString() : "-"}</span>
+                <span>{usuarioSelecionado?.criado_em ? new Date(usuarioSelecionado.criado_em).toLocaleDateString('pt-PT') : "-"}</span>
               </div>
               <div className={style.permissionRow}>
                 <p>
                   <span>Descricao</span>
-
                   <span>
                     {usuarioSelecionado?.descricao || "Sem descrição."}
                   </span>
@@ -369,20 +546,28 @@ export default function Users({ usuarioLogado }) {
         </div>
       </div>
 
-      {/* Modal Editar */}
+      {/* Modal Permissões */}
       <div className={`${style.containerActions} ${showAction ? style.showDisplayTrueActions : style.showDisplayFalseActions}`}>
         <div className={style.cardFormActions}>
           <div className={style.cardClose}>
-            <MdClose onClick={toggleActions} />
+            <MdClose onClick={() => toggleActions(null)} />
           </div>
           <div className={style.userHeader}>
             <div className={style.avatar}>
-              <FiUser size={35} />
+              {usuarioSelecionado?.path_img ? (
+                <img
+                  src={`${api.baseUrl}${usuarioSelecionado.path_img}`}
+                  alt={usuarioSelecionado.nome_completo}
+                  style={{ width: '70px', height: '70px', borderRadius: '50%', objectFit: 'cover' }}
+                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                />
+              ) : null}
+              <FiUser size={35} style={{ display: usuarioSelecionado?.path_img ? 'none' : 'block' }} />
             </div>
 
             <div>
-              <h2>{null || "Selecione um usuário"}</h2>
-              <p>{null || ""}</p>
+              <h2>{usuarioSelecionado?.nome_completo || "Selecione um usuário"}</h2>
+              <p>{usuarioSelecionado?.email || ""}</p>
             </div>
 
             <div style={{ marginLeft: "auto" }}>
@@ -398,22 +583,28 @@ export default function Users({ usuarioLogado }) {
             <div className={style.permissionSection}>
               <h3>Permissões disponíveis</h3>
 
+              {loading ? (
+                <p>Carregando permissões...</p>
+              ) : permissoesDisponiveis.length > 0 ? (
+                permissoesDisponiveis.map((permissao) => (
+                  <div key={permissao.id_permissao} className={style.permissionRow}>
+                    <span>{permissao.permissao}</span>
 
-              <div className={style.permissionRow}>
-                <span>{"Permissao"}</span>
+                    <label className={style.switch}>
+                      <input
+                        type="checkbox"
+                        checked={usuarioTemPermissao(permissao.id_permissao)}
+                        onChange={() => togglePermissao(permissao.id_permissao)}
+                        disabled={loading}
+                      />
+                      <span className={style.slider}></span>
+                    </label>
+                  </div>
+                ))
+              ) : (
+                <p>Nenhuma permissão disponível</p>
+              )}
 
-                <label className={style.switch}>
-                  <input
-                    type="checkbox"
-                  //checked={true}
-                  />
-                  <span className={style.slider}></span>
-                </label>
-              </div>
-
-            </div>
-            <div>
-              <button className={style.saveBtn}>Salvar</button>
             </div>
           </div>
 

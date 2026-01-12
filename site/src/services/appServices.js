@@ -29,7 +29,9 @@ export const enterpriseService = {
     list: () => api.get('/enterprise'),
     create: (data) => api.post('/enterprise', data),
     update: (id, data) => api.put(`/enterprise/${id}`, data),
+    delete: (id) => api.delete(`/enterprise/${id}`),
     upload: (file) => api.upload('/upload', file)
+
 };
 
 export const historyService = {
@@ -44,6 +46,7 @@ export const permissionService = {
     delete: (id) => api.delete(`/permissions/${id}`),
 
     listUserPermissions: () => api.get('/permissions/user'),
+    getUserPermissions: (userId) => api.get(`/user/${userId}/permissions`),
     assignToUser: (data) => api.post('/permissions/user', data),
     updateUserPermission: (id, data) => api.put(`/permissions/user/${id}`, data),
     removeFromUser: (id) => api.delete(`/permissions/user/${id}`)
