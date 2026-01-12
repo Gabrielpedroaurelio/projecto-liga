@@ -9,7 +9,7 @@ export async function createSinal(req, res) {
       id_categoria,
       video_url,
       thumb_url,
-      fonte,
+      id_instituicao,
       tags,
       url_modelo_3d,
       url_animacao
@@ -17,10 +17,10 @@ export async function createSinal(req, res) {
 
     const result = await pool.query(
       `INSERT INTO sinal
-      (palavra_portugues, descricao_gesto, id_categoria, video_url, thumb_url, fonte, tags, url_modelo_3d, url_animacao)
+      (palavra_portugues, descricao_gesto, id_categoria, video_url, thumb_url, id_instituicao, tags, url_modelo_3d, url_animacao)
       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
       RETURNING *`,
-      [palavra_portugues, descricao_gesto, id_categoria, video_url, thumb_url, fonte, tags, url_modelo_3d, url_animacao]
+      [palavra_portugues, descricao_gesto, id_categoria, video_url, thumb_url, id_instituicao, tags, url_modelo_3d, url_animacao]
     );
 
     return {
@@ -37,9 +37,10 @@ export async function createSinal(req, res) {
 export async function getSinais(req, res) {
   try {
     const result = await pool.query(
-      `SELECT s.*, c.categoria AS categoria_nome 
+      `SELECT s.*, c.categoria AS categoria_nome, i.nome_instituicao as empresa_nome
        FROM sinal s
        LEFT JOIN categoria c ON s.id_categoria = c.id_categoria
+       LEFT JOIN instituicao i ON s.id_instituicao = i.id_instituicao
        ORDER BY s.id_sinal ASC`
     );
 
@@ -63,7 +64,7 @@ export async function updateSinal(req, res) {
       id_categoria,
       video_url,
       thumb_url,
-      fonte,
+      id_instituicao,
       tags,
       url_modelo_3d,
       url_animacao
@@ -76,13 +77,13 @@ export async function updateSinal(req, res) {
         id_categoria=$3,
         video_url=$4,
         thumb_url=$5,
-        fonte=$6,
+        id_instituicao=$6,
         tags=$7,
         url_modelo_3d=$8,
         url_animacao=$9
        WHERE id_sinal=$10
        RETURNING *`,
-      [palavra_portugues, descricao_gesto, id_categoria, video_url, thumb_url, fonte, tags, url_modelo_3d, url_animacao, id_sinal]
+      [palavra_portugues, descricao_gesto, id_categoria, video_url, thumb_url, id_instituicao, tags, url_modelo_3d, url_animacao, id_sinal]
     );
 
     if (result.rowCount === 0) {

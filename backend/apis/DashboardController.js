@@ -7,7 +7,7 @@ export async function getDashboardStats(req, res) {
         const activeUsers = await pool.query("SELECT COUNT(*) FROM usuario WHERE status_usuario = 'Activo'");
 
         // Total de Instituições
-        const institutionsCount = await pool.query("SELECT COUNT(*) FROM instituicao");
+        const institutionsCount = await pool.query("SELECT COUNT(*) FROM empresa");
 
         // Total de Sinais
         const signalsCount = await pool.query("SELECT COUNT(*) FROM sinal");

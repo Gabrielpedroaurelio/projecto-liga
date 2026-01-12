@@ -11,9 +11,9 @@ import { createCategoria, getCategorias, updateCategoria, deleteCategoria } from
 import { createSinal, getSinais, updateSinal, deleteSinal } from "./apis/SignalController.js";
 import { getHistorico as getHistoricoAcao } from "./apis/HistoryController.js";
 import { getHistorico as getHistoricoLogin } from "./apis/HistoryLoginController.js";
-import { createInstituicao, getInstituicoes, updateInstituicao } from "./apis/EnterpriseController.js";
+import { createInstituicao, getInstituicoes, updateInstituicao, deleteInstituicao } from "./apis/EnterpriseController.js";
 import { createPermissao, getPermissoes, updatePermissao, deletePermissao } from "./apis/permissaocontroller.js";
-import { createPermissaoUsuario, getPermissoesUsuarios, updatePermissaoUsuario, deletePermissaoUsuario } from "./apis/permissaousercontroller.js";
+import { createPermissaoUsuario, getPermissoesUsuarios, getPermissoesDoUsuario, updatePermissaoUsuario, deletePermissaoUsuario } from "./apis/permissaousercontroller.js";
 import { getDashboardStats } from "./apis/DashboardController.js";
 dotenv.config(); // carrega as variáveis do .env
 
@@ -129,8 +129,8 @@ servidor.route("/user")
     .all(verificarToken)
     .get(async (req, res) => {
         try {
-            const usuarios = await getUsuarios();
-            res.json({ mensagem: "Listar os usuários", user: usuarios });
+            const resultado = await getUsuarios();
+            res.json(resultado);
         } catch (err) {
             console.error(err);
             res.status(500).json({ sucesso: false, erro: err.message });
@@ -139,11 +139,10 @@ servidor.route("/user")
     .post(async (req, res) => {
         try {
             const retorno = await createUsuario(req);
-            res.json({
-                mensagem: "Usuário criado com sucesso",
-                dadosEnviados: req.body,
-                dadosRetornados: retorno
-            });
+            if (!retorno.sucesso) {
+                return res.status(400).json(retorno);
+            }
+            res.status(201).json(retorno);
         } catch (erro) {
             res.status(500).json({ sucesso: false, erro: erro.message });
         }
@@ -184,10 +183,17 @@ servidor.route("/enterprise")
         return res.status(resultado.status || 201).json(resultado);
     });
 
-servidor.put("/enterprise/:id_instituicao", verificarToken, async (req, res) => {
-    const resultado = await updateInstituicao(req);
-    return res.status(resultado.status || 200).json(resultado);
-});
+servidor.route("/enterprise/:id_instituicao")
+    .all(verificarToken)
+    .put(async (req, res) => {
+        const resultado = await updateInstituicao(req);
+        return res.status(resultado.status || 200).json(resultado);
+    })
+    .delete(async (req, res) => {
+        const resultado = await deleteInstituicao(req);
+        return res.status(resultado.status || 200).json(resultado);
+    });
+
 
 // ===================== HISTÓRICO (Ações) =====================
 servidor.get("/history/actions", verificarToken, async (req, res) => {
@@ -273,6 +279,9 @@ servidor.route("/permissions/user")
     .all(verificarToken)
     .get((req, res) => getPermissoesUsuarios(req, res))
     .post((req, res) => createPermissaoUsuario(req, res));
+
+// Buscar permissões de um usuário específico (deve vir antes da rota genérica)
+servidor.get("/user/:id_usuario/permissions", verificarToken, (req, res) => getPermissoesDoUsuario(req, res));
 
 servidor.route("/permissions/user/:id_permissao_usuario")
     .all(verificarToken)

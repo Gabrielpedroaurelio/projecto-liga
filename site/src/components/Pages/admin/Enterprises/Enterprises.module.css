@@ -321,6 +321,7 @@ form {
 }
 
 .inputController input[type="text"],
+.inputController input[type="tel"],
 .inputController input[type="email"],
 .inputController input[type="file"] {
     padding: 12px 15px;
@@ -336,6 +337,7 @@ form {
 }
 
 .inputController input[type="text"]:focus,
+.inputController input[type="tel"]:focus,
 .inputController input[type="email"]:focus,
 .inputController input[type="file"]:focus {
     border-color: var(--c1);
@@ -398,7 +400,7 @@ input[type="file"] {
     align-items: center;
     width: 95%;
     margin: 0 auto 20px;
-    padding: 0 10px;
+    padding: 20px 10px ;
 }
 
 .barsearch {
@@ -555,7 +557,7 @@ CONFIGURAÇÃO DO PAINEL EDITAR
     font-size: 10pt;
 }
 
-.ShowContainerEdit .cardform .cardinput input {
+.ShowContainerEdit .cardform .inputController input {
     height: 30px;
     border: 1px solid #7c7c7c;
     border-radius: 5px;

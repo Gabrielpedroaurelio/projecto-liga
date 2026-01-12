@@ -173,7 +173,7 @@ export default function Enterprises() {
     return (
         <>
             <NavBarAdmin></NavBarAdmin>
-            <SideBarAdmin></SideBarAdmin>
+
             <main className={style.containerEnterprise}>
                 <div className={style.headerEnterprise}>
                     <div className={style.barsearch}>
@@ -258,7 +258,7 @@ export default function Enterprises() {
                         </div>
                         <div className={style.inputController}>
                             <label htmlFor="telefone">Telefone Instituição</label>
-                            <input type="text" name="telefone " id="telefone" {...register('telefone', {
+                            <input type="tel" name="telefone " id="telefone" {...register('telefone', {
                                 required: "Este campo é obrigatorios"
                             })} />
                             {
@@ -315,13 +315,16 @@ export default function Enterprises() {
                         </div>
                         <div className={style.inputController}>
                             <label htmlFor="file">Logo Da Instituição</label>
-                            <input type="file" name="file" id="file" {...register('file')}
+                            <input
+                                type="file"
+                                id="file"
+                                accept="image/*"
                                 onChange={(e) => {
-                                    const selected = e.target.files && e.target.files[0];
-                                    setFile(selected || null);
+                                    const selectedFile = e.target.files?.[0];
+                                    setFile(selectedFile || null);
                                 }}
-
                             />
+
                             {
 
                                 errors ? (

@@ -39,6 +39,29 @@ export async function getPermissoesUsuarios(req, res) {
   }
 }
 
+// Buscar permissões de um usuário específico
+export async function getPermissoesDoUsuario(req, res) {
+  try {
+    const { id_usuario } = req.params;
+
+    const result = await pool.query(
+      `SELECT pu.id_permissao_usuario, pu.id_permissao, p.permissao, p.descricao
+       FROM permissao_usuario pu
+       JOIN permissao p ON pu.id_permissao = p.id_permissao
+       WHERE pu.id_usuario = $1
+       ORDER BY p.permissao ASC`,
+      [id_usuario]
+    );
+
+    res.status(200).json({
+      sucesso: true,
+      permissoes: result.rows,
+    });
+  } catch (erro) {
+    res.status(500).json({ sucesso: false, erro: erro.message });
+  }
+}
+
 // Atualizar relação usuário-permissão
 export async function updatePermissaoUsuario(req, res) {
   try {

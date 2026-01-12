@@ -70,7 +70,7 @@ CREATE TABLE sinal (
     video_url TEXT NOT NULL,             -- URL do vídeo do sinal
     thumb_url TEXT,                      -- URL da thumbnail do sinal
     id_instituicao int REFERENCES instituicao(id_instituicao),                 -- Fonte do sinal (ex: "Instituto XYZ")
-    --tags TEXT[],                         -- Tags associadas ao sinal para facilitar a busca
+    tags TEXT[],                         -- Tags associadas ao sinal para facilitar a busca
     url_modelo_3d TEXT,                  -- URL do modelo 3D do sinal (caso tenha)
     url_animacao TEXT[],                 -- URLs das animações associadas ao sinal (caso tenha)
     data_registo TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP -- Data e hora de registro do sinal
