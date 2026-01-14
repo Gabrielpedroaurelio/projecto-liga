@@ -1,25 +1,68 @@
-:root{
-    --c1:#0043af;
-    --c2:#0086b7;
-    --c3:#1c4365;
-    --c4:#001829;
-    --c5:#00b6c5;
-    --c6:#005d6b;
-    /*Login*/
-    --c7:#318eee;
-    --c8:#4285f7;
-    --c9:#005d6b;
-    --c10:#005d6b;
-    --c11:#34d39918;
-    --c12:#34d399;
-    --c13:#f8717127;
-    --c14:#f87171;
-    --c15:#71d0f827;
-    --c16:#71b2f8;
-    --bg-warning:#fde68a;
-    --txt-warning:#fbbf24;
-    --bg-success:#34d399;
-    --txt-success:#4ade80;
-    --bg-error:#f39999;
-    --txt-error:#dc2626;
+:root {
+  /* --- Brand Palette --- */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  
+  --secondary: #64748b;
+  --secondary-hover: #475569;
+  
+  --accent: #8b5cf6;
+  
+  /* --- Neutrals --- */
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-sidebar: #0f172a; /* Dark Mode Sidebar for serious look */
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+  
+  --border-light: #e2e8f0;
+  --border-focus: #3b82f6;
+  
+  /* --- Semantics --- */
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --success-text: #065f46;
+  
+  --error: #ef4444;
+  --error-bg: #fef2f2;
+  --error-text: #991b1b;
+  
+  --warning: #f59e0b;
+  --warning-bg: #fffbeb;
+  --warning-text: #92400e;
+  
+  --info: #0ea5e9;
+  --info-bg: #f0f9ff;
+  --info-text: #075985;
+  
+  /* --- Elevation & Effects --- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-blur: blur(10px);
+
+  /* --- Transições --- */
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Mapping old vars to new ones for backward compatibility if used directly */
+  --c1: var(--primary);
+  --c2: var(--info);
+  --c3: #334155;
+  --c4: var(--bg-sidebar);
+  --c7: var(--primary);
+  --c8: var(--primary-hover);
 }

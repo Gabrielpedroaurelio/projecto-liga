@@ -28,6 +28,7 @@ export default function Users() {
   const [loading, setLoading] = useState(false);
   const [permissoesDisponiveis, setPermissoesDisponiveis] = useState([]);
   const [permissoesUsuario, setPermissoesUsuario] = useState([]);
+  const [filterProfile, setFilterProfile] = useState('Todos'); // Novo estado para filtro
   const URLs = GetURL();
 
   // Carregar usuários
@@ -40,28 +41,59 @@ export default function Users() {
       console.log("Carregando usuários...");
       const res = await userService.list();
       if (res && res.sucesso) {
-        console.log(res.msm);
         setUsuarios(res.usuario || []);
-        setUsuariosFiltrados(res.usuario || []);
-        console.log(res.usuario);
-
+        applyFilters(res.usuario || [], filterProfile); // Aplica filtro inicial
       }
     } catch (error) {
       console.error("Erro ao carregar usuários:", error);
     }
   }
 
-  // Carregar Perfil
+  // Função centralizada de filtro
+  const applyFilters = (list, profileName, term = "") => {
+    let filtered = [...list];
+
+    // 1. Filtrar por perfil (se não for "Todos")
+    if (profileName !== 'Todos') {
+        // Precisamos encontrar o ID do perfil baseado no nome, ou filtrar pelo id se já tivermos
+        // Como o backend retorna lista de usuarios e perfis separados, precisamos cruzar os dados
+        // No entanto, na lista de usuários já deveria vir o nome do perfil ou id_perfil.
+        // Assumindo que temos id_perfil no usuario e perfis carregados separadamente.
+        
+        // Melhor abordagem: User list from backend usually has 'id_perfil'.
+        // Perfis state has list of {id_perfil, nome}.
+        
+        const targetProfile = perfis.find(p => p.nome === profileName);
+        if (targetProfile) {
+            filtered = filtered.filter(u => u.id_perfil === targetProfile.id_perfil);
+        }
+    }
+
+    // 2. Filtrar por termo de pesquisa (se houver)
+    if (term && term.trim() !== "") {
+        const termLower = term.toLowerCase();
+        filtered = filtered.filter(usuario =>
+            usuario.nome_completo?.toLowerCase().includes(termLower) ||
+            usuario.email?.toLowerCase().includes(termLower)
+        );
+    }
+
+    setUsuariosFiltrados(filtered);
+  };
+
+  // Atualiza filtro quando perfil muda
+  useEffect(() => {
+      applyFilters(usuarios, filterProfile);
+  }, [filterProfile, perfis]); // Re-run when filter or profiles list changes
+
+  // Carregar Perfil (Manteve igual)
   useEffect(() => {
     (async () => {
       try {
         console.log("Carregando perfis...");
         const res = await userService.getProfiles();
-        console.log("Resposta perfis:", res);
         if (res && res.sucesso) {
-          // O backend retorna 'datas' não 'perfis'
           setPerfis(res.datas.perfis);
-          console.log("Perfis carregados:", res.datas.perfis);
         }
       } catch (error) {
         console.error("Erro ao carregar perfis:", error);
@@ -69,22 +101,9 @@ export default function Users() {
     })();
   }, []);
 
-  // Função de pesquisa
+  // Função de pesquisa atualizada
   const handleSearch = (term) => {
-    //setSearchTerm(term);
-
-    if (!term || term.trim() === "") {
-      // Se não há termo de pesquisa, mostra todos os usuários
-      setUsuariosFiltrados(usuarios);
-    } else {
-      // Filtra usuários usando includes (case-insensitive)
-      const termLower = term.toLowerCase();
-      const filtrados = usuarios.filter(usuario =>
-        usuario.nome_completo?.toLowerCase().includes(termLower) ||
-        usuario.email?.toLowerCase().includes(termLower)
-      );
-      setUsuariosFiltrados(filtrados);
-    }
+      applyFilters(usuarios, filterProfile, term);
   };
 
   const toggleAdd = () => setShowAdd(prev => !prev);
@@ -248,15 +267,18 @@ export default function Users() {
       }
     } catch (error) {
       console.error("Erro no cadastro:", error);
-      alert("Erro ao conectar com o servidor.");
+      
+      let msg = error.message;
+      if (msg && msg.includes("duplicate key") && msg.includes("email")) {
+          msg = "Este email já está cadastrado no sistema.";
+      } else if (msg === "Failed to fetch") {
+          msg = "Erro de conexão com o servidor.";
+      }
+      
+      alert(msg || "Erro ao conectar com o servidor.");
     }
   }
 
-  {
-    /**
-     * Fim da Funcao para manipular os formulario de cadastramento se usuario
-     */
-  }
   return (
     <>
       <NavBarAdmin />
@@ -264,6 +286,25 @@ export default function Users() {
       <main className={style.containerMainUser}>
         <div className={style.containerControles}>
           <button onClick={toggleAdd}><MdAdd /> Adicionar Usuário</button>
+        </div>
+
+        {/* Abas de Filtro */}
+        <div className={style.filterTabs}>
+            <button 
+                className={filterProfile === 'Todos' ? style.active : ''} 
+                onClick={() => setFilterProfile('Todos')}
+            >
+                Todos
+            </button>
+            {perfis.map(perfil => (
+                <button
+                    key={perfil.id_perfil}
+                    className={filterProfile === perfil.nome ? style.active : ''}
+                    onClick={() => setFilterProfile(perfil.nome)}
+                >
+                    {perfil.nome}
+                </button>
+            ))}
         </div>
 
         <div className={style.containerContent}>

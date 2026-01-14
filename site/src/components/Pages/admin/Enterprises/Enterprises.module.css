@@ -1,50 +1,92 @@
 @import url(../../../../assets/_css/includes/includes.cores-fonte.css);
 
 .containerEnterprise {
-    margin-left: 50px;
-
-
-
+    margin-left: 260px;
+    padding: 32px;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    transition: var(--transition-normal);
 }
 
-.containerEnterprise .containerController {
+:global(.MenuShort) ~ .containerEnterprise {
+    margin-left: 80px;
+}
 
+.headerEnterprise {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 32px;
+    padding: 0;
 }
 
-.containerEnterprise .containerController button {
-    background: linear-gradient(135deg, var(--c1), var(--c2));
-    color: #fff;
-    width: 150px;
-    margin-right: 20px;
-    font-size: 12pt;
-    padding: 10px;
-    border-radius: 999px;
-    border: none;
-    cursor: pointer;
-
-}
-
-.containerEnterprise .listEnterprise {
+.barsearch {
+    background: var(--bg-surface);
+    padding: 12px 20px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-light);
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 95%;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
+}
+
+.barsearch:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.barsearch input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    font-size: 0.9375rem;
+    color: var(--text-main);
+}
+
+.btnAddManually {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.875rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-fast);
+}
+
+.btnAddManually:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.listEnterprise {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
     margin: 0 auto;
-    justify-content: center;
 }
 
 .enterprise {
-    background-color: #fff;
-    width: 320px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    background: var(--bg-surface);
+    border-radius: var(--radius-xl);
     overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-    animation: slideUp 0.5s ease forwards;
+    border: 1px solid var(--border-light);
+    transition: var(--transition-normal);
     opacity: 0;
+    animation: slideUp 0.5s ease forwards;
 }
 
 @keyframes slideUp {
@@ -52,7 +94,6 @@
         opacity: 0;
         transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -60,30 +101,32 @@
 }
 
 .enterprise:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary);
 }
 
 .enterpriseCardInner {
-    padding: 20px;
+    padding: 24px;
 }
 
 .info {
     display: flex;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .img {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    background-color: #f8fafc;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-main);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px;
-    border: 1px solid #f1f5f9;
+    border: 1px solid var(--border-light);
+    flex-shrink: 0;
 }
 
 .img img {
@@ -100,486 +143,258 @@
 }
 
 .entName {
-    font-size: 16px;
-    font-weight: 600;
-    color: #0f172a;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.2;
 }
 
 .entEmail {
-    font-size: 13px;
-    color: #64748b;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
 }
 
 .entPhone {
-    font-size: 12px;
-    color: #94a3b8;
+    font-size: 0.75rem;
+    color: var(--text-muted);
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     margin-top: 4px;
+    font-weight: 600;
 }
 
 .option {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     border-top: 1px solid #f1f5f9;
-    padding-top: 15px;
+    padding-top: 16px;
 }
 
 .option button {
     flex: 1;
-    border: none;
-    background-color: #f8fafc;
-    color: #475569;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
+    height: 38px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    color: var(--text-muted);
 }
 
 .option button:hover {
-    background-color: #f1f5f9;
-    color: #0f172a;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary);
 }
 
 .btnDelete:hover {
-    background-color: #fef2f2 !important;
-    color: #ef4444 !important;
+    background: var(--error-bg) !important;
+    color: var(--error-text) !important;
+    border-color: var(--error) !important;
 }
 
 .highlight {
-    background-color: #fde68a;
-    color: #92400e;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
     padding: 0 2px;
     border-radius: 2px;
 }
 
 .noData {
-    width: 100%;
+    grid-column: 1 / -1;
     text-align: center;
-    padding: 40px;
-    color: #64748b;
-    font-style: italic;
+    padding: 60px;
+    color: var(--text-muted);
+    font-weight: 500;
 }
 
-.containerEnterprise .listEnterprise .enterprise .info .datas span:nth-child(1) {
-    display: block;
-    font-weight: 600;
-
-
-}
-
-.containerEnterprise .listEnterprise .enterprise .info .datas span:nth-child(2) {
-    font-size: 11px;
-
-}
-
-.containerEnterprise .listEnterprise .enterprise .option {
-
-    display: flex;
-    padding: 5px 10px;
-    justify-content: flex-end;
-}
-
-.containerEnterprise .listEnterprise .enterprise .option button {
-    width: 90px;
-    background-color: var(--c1);
-    border: none;
-    margin: 2px;
-    padding: 5px;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-
-}
-
-.containerEnterprise .listEnterprise .enterprise .option button:nth-child(1) {}
-
-.containerEnterprise .listEnterprise .enterprise .option button:nth-child(2) {
-    color: var(--c1);
-    border: 1px solid var(--c1);
-    background-color: #fff;
-
-}
-
-form>div>h2 {
-    text-align: center;
-}
-
+/* Modals / Drawers */
 .containerEdit,
 .containerView {
-
-    width: 0px;
-    overflow: hidden;
+    width: 0;
     position: fixed;
-    top: 0px;
-    right: 0px;
-    transition: width .4s ease-in-out;
-    background-color: #ffffff;
+    top: 0;
+    right: 0;
     height: 100vh;
-    box-shadow: 0px 0px 10px #c6c6c6;
+    background: var(--bg-surface);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
 .ShowContainerEdit,
 .ShowContainerView {
-    width: 400px;
-
+    width: 500px;
 }
 
 .containerAdd {
-    overflow: hidden;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 0vw;
-    height: 0px;
-    background-color: #00000045;
-    z-index: 1;
-
-    transition: all .5s ease-in-out;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition-normal);
 }
 
 .ShowContainerAdd {
-    background-color: #00000077;
-    width: 100vw;
-
-    height: 100vh;
-    top: 0%;
-    left: 0%;
-    transform: translate(0%, 0%);
+    opacity: 1;
+    pointer-events: auto;
 }
 
-/*
-Configuracao do formularioi de adicionar
-
-*/
-.containerAdd .cardForm {
-    width: 400px;
-
-    background-color: #fff;
-    box-shadow: 0px 0px 10px #7c7c7c;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    padding: 10px;
-}
-
-.containerAdd .cardForm .cardClose {
-    display: flex;
-    justify-content: flex-end;
-
-    align-items: center;
-
-}
-
-
+/* centerpiece modal card */
 .cardForm {
+    background: white;
     width: 100%;
     max-width: 500px;
-    height: 90%;
-    overflow-y: auto;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    padding: 30px 25px;
+    max-height: 90vh;
+    border-radius: var(--radius-2xl);
+    padding: 40px;
     position: relative;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: var(--shadow-2xl);
+    overflow-y: auto;
 }
 
 .cardClose {
-
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    color: #999;
-    transition: color 0.3s ease;
+    color: var(--text-muted);
+    transition: var(--transition-fast);
+    z-index: 100;
 }
 
 .cardClose:hover {
-    color: #ff4b5c;
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: rotate(90deg);
 }
 
-form {
+/* side drawer cards */
+.cardform, .card_descriacao {
+    padding: 40px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    overflow-y: auto;
+}
+
+.cardform h2, .card_descriacao h3, .cardForm h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 32px;
+    text-align: left;
 }
 
 .inputController {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .inputController label {
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #333;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
-.inputController input[type="text"],
-.inputController input[type="tel"],
-.inputController input[type="email"],
-.inputController input[type="file"] {
-    padding: 12px 15px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    height: 30px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.inputController input[type="file"] {
-    height: max-content;
-}
-
-.inputController input[type="text"]:focus,
-.inputController input[type="tel"]:focus,
-.inputController input[type="email"]:focus,
-.inputController input[type="file"]:focus {
-    border-color: var(--c1);
-    box-shadow: 0 0 .1px var(--c1);
+.inputController input {
+    padding: 12px 16px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    color: #0f172a;
+    background: #ffffff;
+    transition: var(--transition-fast);
     outline: none;
 }
 
-.inputController input[type="file"]::-webkit-file-upload-button {
-    background: linear-gradient(135deg, var(--c1), var(--c2));
-
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-
-
-
-
-
-}
-
-
-input[type="file"] {
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-@media (max-width: 600px) {
-    .cardForm {
-        padding: 20px 15px;
-    }
+.inputController input:focus {
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px var(--primary-light);
 }
 
 .inputController input[type="submit"] {
-    background: linear-gradient(135deg, var(--c1), var(--c2));
-    color: #fff;
-    width: 80%;
-    margin: auto;
-    font-size: 12pt;
-    padding: 10px;
-    border-radius: 999px;
+    background: var(--primary);
+    color: white;
+    padding: 14px;
+    border-radius: var(--radius-md);
     border: none;
+    font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
-
+    margin-top: 12px;
+    width: 100%;
 }
 
-
-.containerEdit .cardClose,
-.containerView .cardClose {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px;
-
+.inputController input[type="submit"]:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+    transform: translateY(-2px);
 }
 
-.headerEnterprise {
+/* Specific for View Detail */
+.card_descriacao > div {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    width: 95%;
-    margin: 0 auto 20px;
-    padding: 20px 10px ;
+    padding: 16px 0;
+    border-bottom: 1px solid #f1f5f9;
 }
 
-.barsearch {
-    background-color: #fff;
-    box-shadow: 0px 8px 22px rgba(15, 23, 42, 0.08);
-    display: flex;
-    align-items: center;
-    height: 40px;
-    border-radius: 999px;
-    padding: 8px 16px;
-    width: 100%;
-    max-width: 400px;
-}
-
-.barsearch input {
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    padding: 5px;
-    font-size: 14px;
-}
-
-.containerEnterprise .containerController {
-    margin: 0;
-}
-
-.btnAddManually {
-    background-color: #2563eb;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background-color 0.2s;
-}
-
-.btnAddManually:hover {
-    background-color: #1d4ed8;
-}
-
-/*
-    CONFIGURAÇÕES DO PAINEL DETALHES DA EMPRESA
-*/
-
-
-.ShowContainerView .card_descriacao {
-    width: 90%;
-    margin: auto;
-
-}
-
-.ShowContainerView .card_descriacao h2 {
-    font-size: 14pt;
-
-}
-
-.ShowContainerView .card_descriacao>div {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    align-items: center;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.ShowContainerView .card_descriacao>div span {
-    color: #414b5a;
-    font-size: 15px;
-}
-
-/*
-CONFIGURAÇÃO DO PAINEL EDITAR
-
-*/
-.containerEdit .cardform {
-    display: none;
-}
-
-.ShowContainerEdit .cardform {
-    width: 90%;
-    height: 90%;
-    overflow-y: auto;
-    display: block;
-    margin: auto;
-}
-
-.ShowContainerEdit .cardform .card_enterprise {
-    background-color: #fff;
-    margin: auto;
-    height: 130px;
-    width: 350px;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px #dddddd;
-    display: grid;
-    align-items: center;
-
-    grid-template-columns: 100px 250px;
-
-}
-
-.ShowContainerEdit .cardform .card_enterprise .img {
-    width: 70px;
-    box-sizing: border-box;
-
-    height: 90px;
-    border: 1px solid rgb(10, 9, 9);
-    overflow: hidden;
-    margin: auto;
-    border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ShowContainerEdit .cardform .card_enterprise .img img {
-    width: 100%;
-    height: auto;
-}
-
-.ShowContainerEdit .cardform .card_enterprise .info {}
-
-.ShowContainerEdit .cardform .card_enterprise .info h3 {}
-
-.ShowContainerEdit .cardform .card_enterprise .info strong {
-    color: #999;
-    font-size: 10pt;
-}
-
-.ShowContainerEdit .cardform .card_enterprise .info span {
-
-    display: block;
-    font-size: 10px;
-    color: var(--c16);
-
-
-}
-
-.ShowContainerEdit .cardform .cardinput {
-
-    display: grid;
-
-
-}
-
-.ShowContainerEdit .cardform form .cardinput label {
-    color: #5d5d5d;
-    font-size: 10pt;
-}
-
-.ShowContainerEdit .cardform .inputController input {
-    height: 30px;
-    border: 1px solid #7c7c7c;
-    border-radius: 5px;
-
-}
-
-.ShowContainerEdit .cardform .cardinput button {
-    background-color: var(--c1);
-    padding: 10px;
-    color: #fff;
-    border-radius: 5px;
-    border: none;
+.card_descriacao > div span:first-child {
     font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.ShowContainerEdit .card_enterprise .uploadbtnimg {}
-
-.ShowContainerEdit .card_enterprise .uploadbtnimg {}
-
-.ShowContainerEdit .card_enterprise .uploadbtnimg::-webkit-file-upload-button {
-    background-color: var(--c1);
+.card_descriacao > div span:last-child {
+    font-weight: 700;
+    color: var(--text-main);
 }
 
+.card_descriacao > div img {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+}
 
-.ShowContainerEdit .cardform .card_enterprise .img {}
+@media (max-width: 1024px) {
+    .containerEnterprise {
+        margin-left: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ShowContainerEdit, .ShowContainerView {
+        width: 100vw;
+    }
+    .headerEnterprise {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+    .barsearch {
+        max-width: 100%;
+    }
+}

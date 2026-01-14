@@ -1,147 +1,172 @@
- .containerMainDashboards {
-     max-width: 1100px;
-     margin: 20px auto;
-     padding: 10px 20px 30px;
- }
- 
- .header {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     margin-bottom: 20px;
- }
- 
- .header h1 {
-     font-size: 22px;
-     color: #111827;
-     margin: 0;
- }
- 
- .header p {
-     margin: 4px 0 0;
-     color: #6b7280;
-     font-size: 14px;
- }
- 
- .cards_resumes {
-     display: grid;
-     grid-template-columns: repeat(3, minmax(0, 1fr));
-     gap: 16px;
-     margin-bottom: 20px;
- }
- 
- .cards_resumes .card {
-     display: flex;
-     padding: 14px 16px;
-     border-radius: 14px;
-     background-color: #ffffff;
-     box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-     transition: transform .15s ease-in, box-shadow .15s ease-in;
- }
- 
- .cards_resumes .card:hover {
-     transform: translateY(-2px);
-     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
- }
- 
- .cardIcon {
-     width: 40px;
-     height: 40px;
-     border-radius: 999px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin-right: 10px;
-     background: linear-gradient(135deg, #2563eb, #4f46e5);
-     color: #fff;
-     flex-shrink: 0;
- }
- 
- .cardContent {
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     gap: 4px;
- }
- 
- .cardContent span {
-     font-size: 12px;
-     color: #6b7280;
- }
- 
- .cardContent strong {
-     font-size: 18px;
-     color: #111827;
- }
- 
- .badges {
-     display: flex;
-     flex-wrap: wrap;
-     gap: 6px;
-     margin-top: 4px;
- }
- 
- .content_green {
-     background-color: #dcfce7;
-     color: #166534;
-     font-size: 11px;
-     padding: 3px 8px;
-     border-radius: 999px;
- }
- 
- .content_red {
-     background-color: #fee2e2;
-     color: #b91c1c;
-     font-size: 11px;
-     padding: 3px 8px;
-     border-radius: 999px;
- }
- 
- .cards_resumes_charts {
-     background-color: #ffffff;
-     box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
-     padding: 16px 18px;
-     border-radius: 16px;
-     margin-bottom: 18px;
- }
- 
- .cardChart h3 {
-     font-size: 15px;
-     margin-bottom: 8px;
-     color: #111827;
- }
- 
- .cards_charts {
-     display: grid;
-     grid-template-columns: minmax(0, 1.2fr);
-     gap: 12px;
- }
- 
- .card_chart {
-     background-color: #ffffff;
-     border-radius: 16px;
-     box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
-     padding: 16px 18px;
- }
- 
- .card_chart h3 {
-     font-size: 15px;
-     margin-bottom: 8px;
-     color: #111827;
- }
- 
- @media (max-width: 900px) {
-     .cards_resumes {
-         grid-template-columns: repeat(2, minmax(0, 1fr));
-     }
- }
- 
- @media (max-width: 640px) {
-     .containerMainDashboards {
-         padding: 10px 12px 20px;
-     }
- 
-     .cards_resumes {
-         grid-template-columns: minmax(0, 1fr);
-     }
- }
+.containerMainDashboards {
+    margin-left: 260px;
+    max-width: 1600px;
+    padding: 32px;
+    transition: var(--transition-normal);
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.05), transparent 40%);
+}
+
+:global(.MenuShort) ~ .containerMainDashboards {
+    margin-left: 80px;
+}
+
+/* Header */
+.header {
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    background: linear-gradient(to right, var(--primary), #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.gridFour {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.gridTwoBig {
+    grid-template-columns: 2fr 1fr;
+}
+
+.gridThree {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* Glass Card Style */
+.card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Dark mode overrides for cards */
+:global([data-theme='dark']) .card {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Metrics Cards */
+.metricHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.iconBox {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(147, 197, 253, 0.1));
+    color: var(--primary);
+}
+
+.metricValue {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.metricLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.trend {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.trendUp {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.trendDown {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}
+
+/* Chart Cards */
+.chartHeader {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chartHeader h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.chartContainer {
+    flex: 1;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .gridTwoBig {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .containerMainDashboards {
+        padding: 16px;
+        margin-left: 0 !important;
+    }
+    
+    .gridFour {
+        grid-template-columns: 1fr;
+    }
+}

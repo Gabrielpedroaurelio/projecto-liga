@@ -37,6 +37,28 @@ async function request(path, method = "GET", body = null, isJson = true) {
     }
 }
 
+async function requestBlob(path) {
+    const url = `${BASE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+    const headers = buildHeaders(true); // Sending token is important
+
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers
+        });
+
+        if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data.mensagem || data.erro || "Erro no download.");
+        }
+
+        return response.blob();
+    } catch (error) {
+        console.error("Download Error:", error);
+        throw error;
+    }
+}
+
 export const api = {
     get: (path) => request(path, "GET"),
     post: (path, body) => request(path, "POST", body),
@@ -47,5 +69,6 @@ export const api = {
         formData.append("file", file);
         return request(path, "POST", formData, false);
     },
+    download: (path) => requestBlob(path),
     baseUrl: BASE_URL
 };

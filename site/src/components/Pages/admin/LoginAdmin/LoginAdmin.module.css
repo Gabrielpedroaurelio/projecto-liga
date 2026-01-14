@@ -1,172 +1,287 @@
-@import url(../../../../assets/_css/includes/includes.cores-fonte.css);
-
 .bodyLogin {
-    position: relative;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
-    background: radial-gradient(circle at top left, #eef2ff, #e5e7eb);
+    background: #f1f5f9;
+    background-image:
+        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    padding: 20px;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
 .containerLogin {
-    width: 900px;
-    max-width: 95vw;
-    height: 520px;
-    border-radius: 16px;
-    background-color: #ffffff;
-    display: grid;
-    grid-template-columns: 60% 40%;
+    width: 1100px;
+    max-width: 100%;
+    min-height: 650px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    display: flex;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.5);
     overflow: hidden;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
-    transition: all .9s ease-in-out;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-}
-.LoginEffect{
-    transform: translate(-50%, -50%);
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-/*
-Falta colocar efeitos
-
-
-*/
-.showLogin{
- 
-    transform: translate(-50%, -50%);
-}
-
-.bodyLogin .containerLogin .info {
-    background-image: url(../../../../assets/_images/herobg.png);
-    color: #fff;
+/* Info Section (Right Side) */
+.info {
+    flex: 1.3;
+    background-image: url('../../../../assets/_images/herobg.png');
     background-size: cover;
     background-position: center;
-    position: relative;
-}
-
-.bodyLogin .containerLogin .info>div {
-    padding: 40px 24px;
-    height: 100%;
-    backdrop-filter: blur(4px);
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.319), rgba(37, 100, 235, 0.248));
-}
-
-.bodyLogin .containerLogin .info>div h1,
-.bodyLogin .containerLogin .info>div p {
-    text-align: center;
-}
-
-.bodyLogin .containerLogin .form {}
-
-.bodyLogin .containerLogin .form form {
-    padding-top: 80px;
-    width: 80%;
-    margin: auto;
-}
-
-.bodyLogin .containerLogin .controlerInput {
-    margin: auto;
-    position: relative;
-    height: 70px;
-    width: 100%;
-}
-
-.bodyLogin .containerLogin .controlerInput label {
-    position: absolute;
-    display: block;
-    left: 10px;
-    top: 10px;
-    color: #535252;
-    cursor: text;
-    transition: all .5s;
-}
-
-.bodyLogin .containerLogin .controlerInput input {
-    display: block;
-    padding: 2px 2px 2px 10px;
-    border: none;
-    background-color: #f9fafb;
-    box-shadow: 0px 0px 0px transparent;
-    border-radius: 10px;
-    width: 100%;
-    height: 40px;
-    border: 1px solid #e5e7eb;
-    transition: all .25s ease-in-out;
-}
-
-.bodyLogin .containerLogin .controlerInput input:focus~label {
-    color: rgb(0, 0, 0);
-    top: -25px;
-    left: 0px;
-}
-.bodyLogin .containerLogin .controlerInput .valued {
-     top: -25px;
-    left: 0px;
-}
-
-.bodyLogin .containerLogin .controlerInput input[type="submit"] {
-    background: linear-gradient(135deg, var(--c1), var(--c2));
-    color: #ffffff;
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.03em;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
-}
-
-.containerLogin * {}
-
-.containerLogin .cardImg {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    margin-bottom: 0px;
-    padding: 10px 2px 0px 10px;
-}
-
-.containerLogin .cardImg span{
-    width: 0px;
-    overflow: hidden;
-    font-size: 18pt;
-    font-weight: 600;
+    justify-content: center;
     position: relative;
-    transition: all 4s ease-in-out;   
-     
+    color: white;
 }
-.containerLogin .cardImg .titleLogo {
-    width: 100%;
-    white-space: nowrap;
+
+.info::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(99, 102, 241, 0.85));
+    mix-blend-mode: multiply;
+    z-index: 1;
+}
+
+.info::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 100%);
+    z-index: 1;
+}
+
+.info > div {
+    position: relative;
+    z-index: 2;
+    padding: 60px;
+    text-align: center;
+    max-width: 80%;
+}
+
+.info h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.info p {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    font-weight: 500;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Form Section (Left Side) */
+.form {
+    flex: 1;
+    padding: 60px;
     display: flex;
-    margin-left: 10px;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+    position: relative;
+}
+
+.cardImg {
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.cardImg img {
+    height: 60px;
+    width: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+    transition: transform 0.3s ease;
+}
+
+.cardImg:hover img {
+    transform: scale(1.05) rotate(-5deg);
+}
+
+.titleLogo {
+    font-size: 1.5rem;
+    font-weight: 800;
     color: #0f172a;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    letter-spacing: -0.02em;
 }
- 
+
+.titleLogo strong {
+    color: #2563eb;
+    font-size: 1.75rem;
+}
+
+/* Inputs & Form */
+.form form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.controlerInput {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.controlerInput label {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    /* Static positioning as requested */
+}
+
+/* Input Styles */
+.controlerInput input:not([type="submit"]) {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000000;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.controlerInput input:not([type="submit"]):hover {
+    border-color: #cbd5e1;
+    background: #ffffff;
+}
+
+.controlerInput input:not([type="submit"]):focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* Submit Button */
+.controlerInput input[type="submit"] {
+    margin-top: 12px;
+    padding: 18px;
+    background: linear-gradient(135deg, #2563eb, #4338ca);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.controlerInput input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.4);
+    filter: brightness(1.1);
+}
+
+.controlerInput input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+.controlerInput input[type="submit"]:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
 .errorMessage {
-    font-size: 11px;
-    color: var(--c14);
-    background-color: var(--c13);
-    padding: 6px 10px;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    border: 1px solid rgba(248, 113, 113, 0.4);
+    background: #fef2f2;
+    color: #ef4444;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    border: 1px solid #fecaca;
+    margin-bottom: 10px;
+    animation: slideIn 0.3s ease;
 }
 
-@media (max-width: 768px) {
-    .containerLogin {
-        grid-template-columns: 1fr;
-        height: auto;
-    }
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    .bodyLogin .containerLogin .info {
+/* Login Effect Animation Classes from JSX */
+.LoginEffect {
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .info {
         display: none;
     }
+    
+    .containerLogin {
+        width: 500px;
+        min-height: auto;
+        padding-bottom: 40px;
+    }
 
-    .bodyLogin .containerLogin .form form {
-        padding-top: 40px;
-        padding-bottom: 24px;
+    .form {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 640px) {
+    .bodyLogin {
+        padding: 0;
+        background: white;
+    }
+    
+    .containerLogin {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+    }
+    
+    .form {
+        padding: 32px 24px;
+        justify-content: center;
+    }
+    
+    .cardImg {
+        margin-bottom: 40px;
+        justify-content: center;
+    }
+    
+    .titleLogo {
+        text-align: center;
     }
 }

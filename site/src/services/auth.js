@@ -16,10 +16,20 @@ export async function loginRequest(unused_url, data) {
   }
 }
 
-export function logoutRequest() {
-  localStorage.removeItem("token");
-  // localStorage.removeItem("usuario"); // Opcional, caso ainda existam dados antigos
-  return { sucesso: true };
+export async function logoutRequest(id_usuario) {
+  try {
+    if (id_usuario) {
+      // Envia o logout para o backend registrar no histórico
+      await api.post("/auth/logout", { id_usuario });
+    }
+    localStorage.removeItem("token");
+    return { sucesso: true };
+  } catch (error) {
+    console.error("Logout Request Error:", error);
+    // Mesmo com erro, remove o token localmente
+    localStorage.removeItem("token");
+    return { sucesso: true };
+  }
 }
 
 export async function getMe() {

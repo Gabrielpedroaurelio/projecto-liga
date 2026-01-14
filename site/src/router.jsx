@@ -8,6 +8,8 @@ import Signals from './components/Pages/admin/Signals/Signals'
 import Account from './components/Pages/admin/Account/Account'
 import UserPermissions from './components/Pages/admin/UserPermissions/UserPermissions'
 import Category from './components/Pages/admin/Category/Category'
+import Settings from './components/Pages/admin/Settings/Settings'
+import Reports from './components/Pages/admin/Reports/Reports'
 import ProtectedRoute from './components/Routes/ProtectedRoute'
 export default function Routers() {
   return (
@@ -72,10 +74,26 @@ export default function Routers() {
           }
         />
         <Route
+          path='/admin/settings'
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path='/admin/permissao'
           element={
             <ProtectedRoute>
               <UserPermissions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/admin/reports'
+          element={
+            <ProtectedRoute>
+              <Reports />
             </ProtectedRoute>
           }
         />

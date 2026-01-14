@@ -11,7 +11,7 @@ export default function Connection() {
       user: process.env.DB_USER || 'postgres',
       host: process.env.DB_HOST || 'localhost',
       database: process.env.DB_NAME || 'liga',
-      password: process.env.DB_PASS || '20070404%@',
+      password: process.env.DB_PASS || 'Aguinaldo',
       port: process.env.DB_PORT || 5432,
     });
     console.log("Conexão com PostgreSQL criada com sucesso!");

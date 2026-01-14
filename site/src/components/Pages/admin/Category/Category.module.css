@@ -1,165 +1,222 @@
 .containerCategory {
-    width: 100%;
+    margin-left: 260px;
+    padding: 32px;
     min-height: 100vh;
-    padding: 20px;
-    background-color: #f5f5f5;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding-top: 80px; /* Adjust for fixed navbar if needed */
-    padding-left: 270px; /* Adjust for sidebar if needed, though SideBarAdmin seems to be top search bar? check layout */
+    background-color: var(--bg-main);
+    transition: var(--transition-normal);
 }
 
-/* Adjusting layout based on other pages like Users which seem to have SideBarAdmin separate */
-/* Users.module.css probably handles the layout. Let's assume standard admin layout */
+:global(.MenuShort) ~ .containerCategory {
+    margin-left: 80px;
+}
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 32px;
+    background: var(--bg-surface);
+    padding: 24px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
 }
 
 .header h1 {
     font-size: 1.5rem;
-    color: #333;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
 .btnAdd {
-    background-color: #4CAF50;
+    background-color: var(--primary);
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: bold;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: var(--transition-fast);
+}
+
+.btnAdd:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .listCategories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
 }
 
 .cardCategory {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    width: 300px;
+    background: var(--bg-surface);
+    padding: 24px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    transition: var(--transition-normal);
+}
+
+.cardCategory:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
 }
 
 .cardCategory h3 {
-    margin: 0;
-    color: #333;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
 .cardCategory p {
-    color: #666;
-    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    line-height: 1.6;
     flex-grow: 1;
 }
 
 .actions {
     display: flex;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
 }
 
 .btnEdit, .btnDelete {
-    padding: 5px 10px;
+    flex: 1;
+    padding: 8px;
     border: none;
-    border-radius: 3px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    transition: var(--transition-fast);
 }
 
 .btnEdit {
-    background-color: #2196F3;
+    background-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.btnEdit:hover {
+    background-color: var(--primary);
     color: white;
 }
 
 .btnDelete {
-    background-color: #f44336;
+    background-color: var(--error-bg);
+    color: var(--error-text);
+}
+
+.btnDelete:hover {
+    background-color: var(--error);
     color: white;
 }
 
 /* Modal styles */
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .modalContent {
     background: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 400px;
+    padding: 40px;
+    border-radius: var(--radius-2xl);
+    width: 480px;
+    max-width: 90vw;
+    box-shadow: var(--shadow-2xl);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .modalContent h2 {
-    margin-top: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
 .formGroup {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
 }
 
 .formGroup label {
-    font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-main);
 }
 
 .formGroup input, .formGroup textarea {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 12px 16px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: var(--radius-md);
+    outline: none;
+    font-size: 0.9375rem;
+    color: #0f172a;
+    background: #ffffff;
+    transition: var(--transition-fast);
+}
+
+.formGroup input:focus, .formGroup textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light);
 }
 
 .modalActions {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 12px;
+    margin-top: 8px;
 }
 
 .btnCancel {
-    background: #ccc;
-    color: #333;
+    background: #f1f5f9;
+    color: #475569;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
     cursor: pointer;
 }
 
 .btnSave {
-    background: #4CAF50;
+    background: var(--primary);
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
     cursor: pointer;
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 1024px) {
+    .containerCategory {
+        margin-left: 80px;
+    }
 }

@@ -41,13 +41,12 @@ export default function uploadFile(req, campo = "file", pasta) {
             if (err) resolve({ sucesso: false, erro: err.message });
             else if (!req.file) resolve({ sucesso: false, erro: "Nenhum arquivo enviado" });
             else {
-                // Retorna um caminho relativo amigável (ex: /uploads/images/nome.png)
-                // Remove './' ou 'uploads/' redundante se necessário
-                const relativePath = req.file.path.replace(/\\/g, '/');
+                // Retorna um caminho relativo limpo (ex: uploads/images/nome.png)
+                const relativePath = req.file.path.replace(/\\/g, '/').replace(/^\.\//, '');
                 resolve({
                     sucesso: true,
                     filename: req.file.filename,
-                    path: `/${relativePath}`
+                    path: relativePath
                 });
             }
         });

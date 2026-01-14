@@ -39,7 +39,7 @@ export async function LogoutHistorico(req) {
 export async function getHistorico(req, res) {
   try {
     const result = await pool.query(
-      `select *from vw_history;`
+      `select * from vw_historico_login;`
     );
 
     return { sucesso: true, historico: result.rows,status:200 };

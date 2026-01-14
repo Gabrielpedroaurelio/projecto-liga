@@ -53,5 +53,17 @@ export const permissionService = {
 };
 
 export const dashboardService = {
-    getStats: () => api.get('/dashboard/stats')
+    getStats: (params) => {
+        // Convert params object to query string
+        const queryString = params 
+            ? '?' + new URLSearchParams(params).toString() 
+            : '';
+        return api.get(`/dashboard/stats${queryString}`);
+    }
+};
+
+export const systemService = {
+    listBackups: () => api.get('/system/backups'),
+    createBackup: () => api.post('/system/backups'), // Creates a new one
+    downloadBackupFile: (filename) => api.download(`/system/backups/${filename}`)
 };

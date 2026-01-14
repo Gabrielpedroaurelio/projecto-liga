@@ -72,10 +72,34 @@ export async function updateUsuario(req) {
       descricao,
     } = req.body;
 
-    let finalSenha = senha_hash;
-    if (senha_hash && !senha_hash.startsWith('$2b$')) {
-      finalSenha = await bcrypt.hash(senha_hash, 10);
+    // Buscar usuário atual para manter dados não enviados
+    const currentUserResult = await pool.query('SELECT * FROM usuario WHERE id_usuario = $1', [id_usuario]);
+    if (currentUserResult.rows.length === 0) {
+        return { status: 404, sucesso: false, mensagem: "Usuário não encontrado" };
     }
+    const currentUser = currentUserResult.rows[0];
+
+    // Lógica da senha: se enviou nova, hashea. Se não, mantém a antiga.
+    let finalSenha = currentUser.senha_hash;
+    if (senha_hash && senha_hash.trim() !== '') {
+        // Se a senha já parece um hash (apenas precaução, embora raro vir do front assim), não re-hashea
+        if (!senha_hash.startsWith('$2b$')) {
+            finalSenha = await bcrypt.hash(senha_hash, 10);
+        }
+    }
+
+    // Preparar valores (usando coalescência no JS para garantir que não mandamos undefined)
+    const values = [
+      nome_completo || currentUser.nome_completo,
+      email || currentUser.email,
+      telefone || currentUser.telefone,
+      finalSenha,
+      id_perfil || currentUser.id_perfil,
+      status_usuario || currentUser.status_usuario,
+      path_img || currentUser.path_img,
+      descricao || currentUser.descricao,
+      id_usuario
+    ];
 
     const result = await pool.query(
       `UPDATE usuario SET
@@ -90,7 +114,7 @@ export async function updateUsuario(req) {
         atualizado_em=NOW()
         WHERE id_usuario=$9
         RETURNING *`,
-      [nome_completo, email, telefone, finalSenha, id_perfil, status_usuario, path_img, descricao, id_usuario]
+      values
     );
 
     if (result.rowCount === 0) return { status: 502, sucesso: false, mensagem: "Usuário não encontrado" };

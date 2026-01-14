@@ -1,37 +1,94 @@
+@import url(../../../../assets/_css/includes/includes.cores-fonte.css);
+
 .containerHistory {
-    margin-left: 50px;
- 
- 
-
-
+    margin-left: 260px;
+    padding: 32px;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    transition: var(--transition-normal);
 }
 
-.containerHistory>div {
-    margin: auto;
-    max-width: 1000px;
-    min-width: 800px;
-
+:global(.MenuShort) ~ .containerHistory {
+    margin-left: 80px;
 }
 
-.containerHistory .navigatorHistory {
-    width:300px;
-    margin:10px auto;
+.pageHeader {
+    margin-bottom: 32px;
+}
+
+.pageHeader h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    letter-spacing: -0.025em;
+}
+
+.pageHeader p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.tabsContainer {
     display: flex;
-    justify-content: center;
-    cursor: pointer;
+    gap: 16px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 16px;
 }
-.containerHistory .navigatorHistory div{}
 
-.containerHistory .navigatorHistory  button{
-    background-color: var(--c4);
-    border-radius: 5px;
+.tabBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
     border: none;
-    padding: 5px 10px;
-    margin: auto 10px;
-    transition: background-color .5s ease-in-out;
-    color: aliceblue;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
     cursor: pointer;
+    transition: var(--transition-fast);
 }
-.containerHistory .navigatorHistory  button:hover{
-background-color: var(--c3);
+
+.tabBtn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-main);
+}
+
+.tabBtn.active {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.contentArea {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+    .containerHistory {
+        margin-left: 80px;
+    }
+}
+
+@media (max-width: 640px) {
+    .containerHistory {
+        padding: 16px;
+        margin-left: 0; /* Assuming mobile menu covers or changes behavior */
+    }
+    
+    .tabsContainer {
+        overflow-x: auto;
+        padding-bottom: 12px;
+    }
+    
+    .tabBtn {
+        white-space: nowrap;
+    }
 }

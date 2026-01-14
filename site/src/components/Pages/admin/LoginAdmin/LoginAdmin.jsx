@@ -1,41 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoginAdminData from '../../../Elements/LoginAdminData/LoginAdminData'
 
 import style from './LoginAdmin.module.css'
 
 const LoginAdmin = () => {
-    const pages_anable = [
-        <LoginAdminData style={style}></LoginAdminData>,
-
-    ]
-    const [LoginEffect, setLoginEffect] = useState(false);
-    const LoginEffectFunction = () => {
-        setLoginEffect(true)
-    }
+    const [loginEffect, setLoginEffect] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
 
-    const obseverLogin = showLogin
-    function ShowLogin() {
-        if (obseverLogin) {
-            setShowLogin(false)
-        } else {
+    useEffect(() => {
+        // Trigger animations on mount
+        setShowLogin(true);
+        const timer = setTimeout(() => {
+            setLoginEffect(true);
+        }, 100);
+        return () => clearTimeout(timer);
+    }, []);
 
-            setShowLogin(true)
-        }
-    }
     return (
-        <div className={style.bodyLogin   } onLoad={() => {
-            ShowLogin()
-            LoginEffectFunction()
-
-             
-        }}>
-            <div className={style.containerLogin + `  ${showLogin ? "showLogin" : ""}` + ` ${LoginEffect ? style.LoginEffect : ""}`}>
-
-                {pages_anable[0]}
-
+        <div className={style.bodyLogin}>
+            <div className={`${style.containerLogin} ${showLogin ? "showLogin" : ""} ${loginEffect ? style.LoginEffect : ""}`}>
+                <LoginAdminData style={style} />
             </div>
-        </div >
+        </div>
     )
 }
 export default LoginAdmin;

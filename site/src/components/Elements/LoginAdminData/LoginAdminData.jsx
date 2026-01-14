@@ -1,28 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logotipo from '../../../assets/_images/favicon.png';
 import { loginRequest } from '../../../services/auth';
-import { GetURL } from '../../../services/ModelServices';
 
 const LoginAdminData = ({ style }) => {
   const [showTitle, setShowTitle] = useState(false);
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState("");
-  const [loginemail, setLoginemail] = useState(null)
-  const [loginsenha, setLoginSenha] = useState(null)
+  const [loginemail, setLoginemail] = useState("");
+  const [loginsenha, setLoginSenha] = useState("");
   const navigate = useNavigate();
 
-  const obseverTitle = showTitle
-
-  function ShowTitle() {
-    if (obseverTitle) {
-      setShowTitle(false)
-    } else {
-
-      setShowTitle(true)
-    }
-
-  }
+  useEffect(() => {
+    // Trigger animation on mount
+    const timer = setTimeout(() => {
+        setShowTitle(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Codigo para o login
   async function Login(e) {
@@ -45,11 +40,10 @@ const LoginAdminData = ({ style }) => {
         setErro(result.mensagem || "Falha ao autenticar");
         return;
       }
-      console.log(result);
-      localStorage.setItem("authtoken",result.token)
+      
+      localStorage.setItem("authtoken", result.token);
       navigate("/admin/dashboards");
-      console.log("Login successful:", result);
-
+      
     } catch (error) {
       console.error(error);
       setErro("Erro inesperado ao autenticar. Verifique sua conexão.");
@@ -57,43 +51,59 @@ const LoginAdminData = ({ style }) => {
       setLoading(false);
     }
   }
+
   return (
     <>
-      <div className={style.form} onLoad={() => {
-
-
-        ShowTitle()
-      }}>
+      <div className={style.form}>
         <div className={style.cardImg}>
-          <img src={logotipo} alt="" width="50" />
-          <span className={`${showTitle ? style.titleLogo : ""}`}>Linguagem Gestual Angolana <hr />  <strong>LIGA</strong> </span>
+          <img src={logotipo} alt="Logo LIGA" />
+          <div className={`${style.titleLogo}`}>
+             <span>Linguagem Gestual Angolana</span>
+             <strong>LIGA</strong>
+          </div>
         </div>
-        <form action="" onSubmit={Login}>
-
+        
+        <form onSubmit={Login}>
           {erro && (
-            <p className={style.errorMessage}>
+            <div className={style.errorMessage}>
               {erro}
-            </p>
+            </div>
           )}
 
           <div className={style.controlerInput}>
-            <input type="email" name="email" id="email" onChange={(e) =>
-              setLoginemail((prev) => prev = e.target.value)
-            } />
-            <label htmlFor="email" className={`${loginemail ? style.valued : null}`}>E-mail:</label>
+            <label htmlFor="email">E-mail</label>
+            <input 
+                type="email" 
+                name="email" 
+                id="email" 
+                value={loginemail}
+                onChange={(e) => setLoginemail(e.target.value)}
+                required
+            />
           </div>
+          
           <div className={style.controlerInput}>
-            <input type="password" name="password" id="password"
-              onChange={(e) =>
-                setLoginSenha((prev) => prev = e.target.value)
-              } />
-            <label htmlFor="password" className={`${loginsenha ? style.valued : null}`}>Senha:</label>
+            <label htmlFor="password">Senha</label>
+            <input 
+                type="password" 
+                name="password" 
+                id="password"
+                value={loginsenha}
+                onChange={(e) => setLoginSenha(e.target.value)}
+                required
+            />
           </div>
+          
           <div className={style.controlerInput}>
-            <input type="submit" value={loading ? "Entrando..." : "Entrar"} disabled={loading} />
+            <input 
+                type="submit" 
+                value={loading ? "Verificando..." : "Entrar"} 
+                disabled={loading} 
+            />
           </div>
         </form>
       </div>
+      
       <div className={style.info}>
         <div>
           <h1>Linguagem Gestual Angolana</h1>
@@ -103,6 +113,7 @@ const LoginAdminData = ({ style }) => {
         </div>
       </div>
     </>
-  )
+  );
 }
+
 export default LoginAdminData;

@@ -2,6 +2,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { createUsuario, getUsuarios, updateUsuario } from './apis/UserController.js';
 import { getPerfil } from "./apis/PerfilController.js";
 import uploadFile from './utils/uploadFile.js';
@@ -30,8 +32,18 @@ servidor.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 servidor.use(express.json()); // permite receber JSON no corpo das requisições
-servidor.use('/uploads', express.static('uploads'));
+
+// Middleware para normalizar URLs removendo barras duplas
+servidor.use((req, res, next) => {
+    req.url = req.url.replace(/\/{2,}/g, '/');
+    next();
+});
+
+servidor.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ===================== DASHBOARD =====================
 servidor.get("/dashboard/stats", async (req, res) => {
@@ -77,10 +89,10 @@ servidor.post("/auth/login", async (req, res) => {
     }
 });
 
-// Rota de logout (apenas simbólica, já que o JWT é stateless)
+// Rota de logout
 servidor.post("/auth/logout", async (req, res) => {
     try {
-        const resultado = await logoutController();
+        const resultado = await logoutController(req);
         return res.json(resultado);
     } catch (erro) {
         console.error(erro);
@@ -287,6 +299,13 @@ servidor.route("/permissions/user/:id_permissao_usuario")
     .all(verificarToken)
     .put((req, res) => updatePermissaoUsuario(req, res))
     .delete((req, res) => deletePermissaoUsuario(req, res));
+
+// ===================== SYSTEM =====================
+import { createBackup, getBackups, downloadBackupFile } from "./apis/BackupController.js";
+
+servidor.get("/system/backups", verificarToken, getBackups);
+servidor.post("/system/backups", verificarToken, createBackup);
+servidor.get("/system/backups/:filename", verificarToken, downloadBackupFile);
 
 // ===================== INICIAR SERVIDOR =====================
 servidor.listen(PORTA, host, (erro) => {

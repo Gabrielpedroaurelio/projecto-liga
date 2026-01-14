@@ -31,8 +31,12 @@ export function AuthProvider({ children }) {
         }
     }, []);
 
-    const logout = () => {
-        logoutRequest();
+    const logout = async () => {
+        if (user?.id_usuario) {
+            await logoutRequest(user.id_usuario);
+        } else {
+            await logoutRequest();
+        }
         setUser(null);
     };
 
